@@ -9,15 +9,24 @@
 			{% block title %}Orchid'Fit
 			{% endblock %}
 		</title>
+		<!-- Dependencies -->
+		<link rel="stylesheet" href="/bootstrap-5.2.1-dist/css/bootstrap.min.css">
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
-			<link rel="stylesheet" href="/bootstrap-5.2.1-dist/css/bootstrap.min.css">
 		{% endblock %}
 	</head>
+
 	<body>
+		{% block nav %}
+			{% include "partials/_nav.html.twig" %}
+		{% endblock %}
+
 		{% block body %}{% endblock %}
 
-        {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
+		<!-- Javascript -->
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
 		<script src="/bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://kit.fontawesome.com/5528e9fcbf.js" crossorigin="anonymous"></script>
 		<noscript>Veuillez, s'il vous plaît, activer JavaScript pour pouvoir bénéficier de toutes lesfonctionnalités</noscript>
