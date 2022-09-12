@@ -1,59 +1,76 @@
-{% extends 'base.html.twig' %} {% block title %}
-{{ parent() }}
-Services {% endblock %} {% block body %}
-<!-- HEADER -->
-<header class="row mt-4">
-  <div class="col-12 d-flex justify-content-center">
-    <h1>Services</h1>
-  </div>
-</header>
+{% extends 'base.html.twig' %}
+{% block title %}
+	{{ parent() }}
+	services
+{% endblock %}
+{% block body %}
+	<!-- HEADER -->
+	<header class="row mt-4">
+		<div class="col-12 d-flex justify-content-center">
+			<h1>Services</h1>
+		</div>
+	</header>
 
-<!-- MAIN -->
-<main class="container-fluid">
-  <div class="row d-flex justify-content-center">
-    <!-- if services return an empty array -->
-    {% if not services.items is same as([]) %}
-    <div class="col-10 mt-4">
-      <p>
-        il y a
-        {{ services.getTotalItemCount }}
-        service(s) au total
-      </p>
+	<!-- MAIN -->
+	<main class="container-fluid">
+		<div
+			class="row d-flex justify-content-center">
+			<!-- Alert message service created -->
+			<div class="col-5">
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-success mt-4">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
 
-      <!-- Services list -->
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Services</th>
-              <th scope="col">Date de création</th>
-              <th scope="col">Édition</th>
-              <th scope="col">Suppression</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for service in services %}
-            <tr>
-              <th scope="row">{{ service.serviceName }}</th>
-              <td>{{ service.createdAt|date("d/m/Y") }}</td>
-              <td></td>
-              <td></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
+			<a href="{{ path('service.new') }}" class="btn btn-primary">
+				Créer un service
+			</a>
 
-    <!-- pagination -->
-    <div class="navigation d-flex justify-content-center mt-4">
-      {{ knp_pagination_render(services) }}
-    </div>
-  </div>
-  {% else %}
-  <div class="col-10">
-    <p>Il n'y a pas de services</p>
-  </div>
-  {% endif %}
-</main>
+			<!-- if services return an empty array -->
+			{% if not services.items is same as([]) %}
+				<div class="col-10 mt-4">
+					<p>
+						il y a
+						{{ services.getTotalItemCount }}
+						service(s) au total
+					</p>
+
+					<!-- Services list -->
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th scope="col">Services</th>
+									<th scope="col">Date de création</th>
+									<th scope="col">Édition</th>
+									<th scope="col">Suppression</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for service in services %}
+									<tr>
+										<th scope="row">{{ service.serviceName }}</th>
+										<td>{{ service.createdAt|date("d/m/Y") }}</td>
+										<td></td>
+										<td></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- pagination -->
+				<div class="navigation d-flex justify-content-center mt-4">
+					{{ knp_pagination_render(services) }}
+				</div>
+			</div>
+		{% else %}
+			<div class="col-10">
+				<p>Il n'y a pas de services</p>
+			</div>
+		{% endif %}
+	</main>
 {% endblock %}

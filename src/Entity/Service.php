@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
+#[UniqueEntity('service_name')]
 class Service
 {
     #[ORM\Id]
@@ -21,7 +22,7 @@ class Service
     private ?string $service_name;
 
     #[ORM\Column(type: 'boolean')]
-    private ?bool $is_active;
+    private ?bool $is_active = false;
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
