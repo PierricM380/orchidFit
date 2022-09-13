@@ -22,7 +22,7 @@ class Service
     private ?string $service_name;
 
     #[ORM\Column(type: 'boolean')]
-    private ?bool $is_active = false;
+    private ?bool $is_active;
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
@@ -53,7 +53,7 @@ class Service
         return $this;
     }
 
-    public function isIsActive(): ?bool
+    public function getIsActive(): ?bool
     {
         return $this->is_active;
     }
