@@ -38,10 +38,11 @@ services
 
 				<!-- Services list -->
 				<div class="table-responsive mt-2">
-					<table class="table table-bordered table-striped table-hover shadow">
+					<table class="table align-middle table-bordered table-striped table-hover shadow">
 						<thead>
 							<tr>
 								<th scope="col">Services</th>
+								<th scope="col">Statut</th>
 								<th scope="col">Date de création</th>
 								<th scope="col">Éditer</th>
 								<th scope="col">Suppression</th>
@@ -50,13 +51,16 @@ services
 						<tbody>
 							{% for service in services %}
 							<tr>
-								<th scope="row">{{ service.serviceName }}</th>
+								<td scope="row">{{ service.serviceName }}</td>
+								<td scope="row">
+									{{ service.isActive }}
+								</td>
 								<td>{{ service.createdAt|date("d/m/Y") }}</td>
-								<th scope="row">
-									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning">modifier</a>
-								</th>
+								<td scope="row">
+									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+								</td>
 								<td>
-									<a href="{{ path('service.delete', { id: service.id }) }}" class="btn btn-sm btn-danger">Supprimer</a>
+									<a href="{{ path('service.delete', { id: service.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
 								</td>
 							</tr>
 							{% endfor %}

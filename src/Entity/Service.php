@@ -16,7 +16,7 @@ class Service
     #[ORM\Column(type: 'integer')]
     private ?int $id;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
     private ?string $service_name;
