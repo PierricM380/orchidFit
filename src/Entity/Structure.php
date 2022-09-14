@@ -32,8 +32,6 @@ class Structure
     private ?string $postalAddress;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Positive()]
-    #[Assert\LessThan(10)]
     private ?int $phoneNumber;
 
     #[ORM\Column(type: Types::TEXT)]

@@ -15,7 +15,7 @@ class ServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('service_name', TextType::class, [
+            ->add('name', TextType::class, [
                 'attr' => [
                     'class' => 'form-control shadow',
                     'minlength' => '2',
@@ -23,10 +23,10 @@ class ServiceType extends AbstractType
                 ],
                 'label' => 'Nom du service',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label'
                 ],
             ])
-            ->add('is_active', CheckboxType::class, [
+            ->add('isActive', CheckboxType::class, [
                 'label' => 'Statut',
                 'required' => false,
                 'attr' => [

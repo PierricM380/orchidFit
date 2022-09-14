@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }}
+structures
+{% endblock %}
+
+{% block body %}
+<Div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row mt-4">
+        <div class="col-12 d-flex justify-content-center">
+            <h1>Structures</h1>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="row d-flex justify-content-center mt-4">
+        
+        <div class="col-10">
+            <!-- Alert message structure created -->
+            {% for message in app.flashes('success') %}
+			<div class="alert alert-success col-3">
+				{{ message }}
+			</div>
+			{% endfor %}
+            <!-- if structures return an empty array -->
+            {% if not structures.items is same as([]) %}
+            <div>
+                <p>
+                    Il y a
+                    {{ structures.getTotalItemCount }}
+                    structure(s) au total
+                </p>
+
+                <a href="{{ path('structure.new') }}" class="btn btn-sm btn-primary shadow">
+                    Créer un structure
+                </a>
+
+                <!-- structures list -->
+                <div class="table-responsive mt-2">
+                    <table class="table align-middle table-bordered table-striped table-hover shadow">
+                        <thead>
+                            <tr>
+                                <th scope="col">structures</th>
+                                <th scope="col">Gérant</th>
+                                <th scope="col">Partenaire</th>
+                                <th scope="col">Date de création</th>
+                                <th scope="col">Statut</th>
+                                <th scope="col">Visualiser</th>
+                                <th scope="col">Éditer</th>
+                                <th scope="col">Suppression</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for structure in structures %}
+                            <tr>
+                                <td scope="row">{{ structure.getName }}</td>
+                                <td scope="row"></td>
+                                <td scope="row"></td>
+                                <td>{{ structure.createdAt|date("d/m/Y") }}</td>
+                                <td scope="row">
+                                    {{ structure.isActive }}
+                                </td>
+                                <td scope="row">
+                                <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
+                                </td>
+                                <td scope="row">
+                                    <a href="" class="btn btn-sm btn-warning shadow">modifier</a>
+                                </td>
+                                <td>
+                                    <a href="" class="btn btn-sm btn-danger shadow">Supprimer</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- pagination -->
+                <div class="navigation d-flex justify-content-center mt-2">
+                    {{ knp_pagination_render(structures) }}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-10">
+            <p>Il n'y a pas de structures</p>
+
+            <a href="{{ path('#') }}" class="btn btn-sm btn-primary">
+                Créer un structure
+            </a>
+        </div>
+        {% endif %}
+</div>
+</main>
+</Div>
+{% endblock %}

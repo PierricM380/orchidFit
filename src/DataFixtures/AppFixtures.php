@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
         for ($o = 0; $o < 10; $o++) {
             $service = new Service();
             $service
-                ->setServiceName($this->faker->word())
+                ->setName($this->faker->word())
                 ->setisActive(mt_rand(0, 1) == 1 ? true : false);
 
             $services[] = $service;
@@ -39,7 +39,7 @@ class AppFixtures extends Fixture
             $structure
             ->setName($this->faker->word())
             ->setPostalAddress($this->faker->address())
-            ->setPhoneNumber($this->faker->randomNumber())
+            ->setPhoneNumber($this->faker->phoneNumber())
             ->setDescription($this->faker->text(50))
             ->setIsActive(mt_rand(0, 1) == 1 ? true : false);
 
