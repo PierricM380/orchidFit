@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
-#[UniqueEntity('service_name')]
+#[UniqueEntity('name')]
 class Service
 {
     #[ORM\Id]
@@ -19,21 +19,21 @@ class Service
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
-    private ?string $service_name;
+    private ?string $name;
 
     #[ORM\Column(type: 'boolean')]
-    private ?bool $is_active;
+    private ?bool $isActive;
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
-    private ?\DateTimeImmutable $created_at;
+    private ?\DateTimeImmutable $createdAt;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->created_at = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -41,39 +41,44 @@ class Service
         return $this->id;
     }
 
-    public function getServiceName(): ?string
+    public function getName(): ?string
     {
-        return $this->service_name;
+        return $this->name;
     }
 
-    public function setServiceName(string $service_name): self
+    public function setName(string $name): self
     {
-        $this->service_name = $service_name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getIsActive(): ?bool
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
-    public function setIsActive(bool $is_active): self
+    public function setIsActive(bool $isActive): self
     {
-        $this->is_active = $is_active;
+        $this->isActive = $isActive;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

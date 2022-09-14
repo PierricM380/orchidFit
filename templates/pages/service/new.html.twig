@@ -19,17 +19,17 @@ ajout service
 		<div class="col-6 card text-white bg-secondary p-3">
 			{{ form_start(form) }}
 			<div class="form-group">
-				{{ form_label(form.service_name) }}
-				{{ form_widget(form.service_name) }}
+				{{ form_label(form.name) }}
+				{{ form_widget(form.name) }}
 
 				<div class="form-error">
-					{{ form_errors(form.service_name) }}
+					{{ form_errors(form.name) }}
 				</div>
 			</div>
 
 			<div class="form-group">
 				<div class="form-check form-switch pt-3">
-					{{ form_row(form.is_active) }}
+					{{ form_row(form.isActive) }}
 				</div>
 			</div>
 

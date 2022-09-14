@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}
-{{ parent() }}
-services
+	{{ parent() }}
+	services
 {% endblock %}
 
 {% block body %}
@@ -15,8 +16,8 @@ services
 
 	<!-- MAIN -->
 	<main class="row d-flex justify-content-center mt-4">
-		<!-- Alert message service created -->
 		<div class="col-10">
+		<!-- Alert message service created -->
 			{% for message in app.flashes('success') %}
 			<div class="alert alert-success col-3">
 				{{ message }}
@@ -51,7 +52,7 @@ services
 						<tbody>
 							{% for service in services %}
 							<tr>
-								<td scope="row">{{ service.serviceName }}</td>
+								<td scope="row">{{ service.name }}</td>
 								<td scope="row">
 									{{ service.isActive }}
 								</td>
@@ -59,7 +60,7 @@ services
 								<td scope="row">
 									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
 								</td>
-								<td>
+								<td scope="row">
 									<a href="{{ path('service.delete', { id: service.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
 								</td>
 							</tr>

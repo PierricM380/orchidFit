@@ -79,7 +79,6 @@ class ServiceController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-
     #[Route('/service/edition/{id}', name: 'service.edit', methods: ['GET', 'POST'])]
     public function edit(EntityManagerInterface $manager, Request $request, Service $service): Response
     {
