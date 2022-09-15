@@ -92,7 +92,7 @@ class PartnerController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Le partenaire bien été modifié'
+                'Le partenaire a bien été modifié'
             );
 
             return $this->redirectToRoute('partner.index');

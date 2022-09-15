@@ -58,7 +58,7 @@ class StructureController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'La structure a bien été crée'
+                'La structure a bien été créée'
             );
 
             return $this->redirectToRoute('structure.index');
@@ -92,7 +92,7 @@ class StructureController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'La structure bien été modifiée'
+                'La structure a bien été modifiée'
             );
 
             return $this->redirectToRoute('structure.index');
