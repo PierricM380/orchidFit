@@ -16,10 +16,10 @@
 
 	<!-- MAIN -->
 	<main class="row d-flex justify-content-center mt-4">
-		<div class="col-10">
+		<div class="col-12 col-lg-10">
 		<!-- Alert message service actions -->
 			{% for message in app.flashes('success') %}
-			<div class="alert alert-success col-3">
+			<div class="alert alert-success col-6 col-lg-3">
 				{{ message }}
 			</div>
 			{% endfor %}
@@ -72,7 +72,7 @@
 			</div>
 		</div>
 		{% else %}
-		<div class="col-10">
+		<div class="col-12 col-lg-10">
 			<p>Il n'y a pas de services</p>
 
 			<a href="{{ path('service.new') }}" class="btn btn-sm btn-primary">
