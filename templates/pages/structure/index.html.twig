@@ -20,7 +20,7 @@ structures
         <div class="col-10">
             <!-- Alert message structure created -->
             {% for message in app.flashes('success') %}
-			<div class="alert alert-success col-3">
+			<div class="alert alert-success col-4">
 				{{ message }}
 			</div>
 			{% endfor %}
@@ -66,10 +66,10 @@ structures
                                 <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
                                 </td>
                                 <td scope="row">
-                                    <a href="" class="btn btn-sm btn-warning shadow">modifier</a>
+                                <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-sm btn-danger shadow">Supprimer</a>
+                                    <a href="{{ path('structure.delete', { id: structure.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
                                 </td>
                             </tr>
                             {% endfor %}

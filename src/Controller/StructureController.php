@@ -69,4 +69,60 @@ class StructureController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * This controller allow us to edit a structure
+     *
+     * @param Structure $structure
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route('/structure/edition/{id}', name: 'structure.edit', methods: ['GET', 'POST'])]
+    public function edit(EntityManagerInterface $manager, Request $request, Structure $structure): Response
+    {
+        $form = $this->createForm(StructureType::class, $structure);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $structure = $form->getData();
+
+            $manager->persist($structure);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La structure bien été modifiée'
+            );
+
+            return $this->redirectToRoute('structure.index');
+        }
+
+        return $this->render('pages/structure/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * This controller allows us to delete a structure
+     *
+     * @param EntityManagerInterface $manager
+     * @param Structure $service
+     * @return Response
+     */
+    #[Route('/structure/suppression/{id}', 'structure.delete', methods: ['GET'])]
+    public function delete(
+        EntityManagerInterface $manager,
+        Structure $structure
+    ): Response {
+        $manager->remove($structure);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'La structure a bien été supprimée'
+        );
+
+        return $this->redirectToRoute('structure.index');
+    }
 }
