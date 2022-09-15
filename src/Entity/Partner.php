@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\StructureRepository;
+use App\Repository\PartnerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -11,10 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\Entity(repositoryClass: PartnerRepository::class)]
 #[UniqueEntity('name')]
-#[ORM\Entity(repositoryClass: StructureRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Structure
+class Partner
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -41,29 +41,24 @@ class Structure
     #[ORM\Column(type: 'boolean')]
     private ?bool $isActive;
 
-    #[ORM\ManyToMany(targetEntity: Service::class)]
+    #[ORM\ManyToMany(targetEntity: Structure::class)]
     #[Assert\NotNull()]
-    private Collection $service;
+    private Collection $structure;
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\NotNull()]
     private ?\DateTimeImmutable $updatedAt;
 
     public function __construct()
     {
-        $this->service = new ArrayCollection();
+        $this->structure = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable;
         $this->updatedAt = new \DateTimeImmutable();
-
-    }
-
-    #[ORM\PrePersist()]
-    public function setUpdatedAtValue()
-    {
-        $this->updatedAt = new \DateTimeImmutable();
+        
     }
 
     public function getId(): ?int
@@ -131,30 +126,6 @@ class Structure
         return $this;
     }
 
-    /**
-     * @return Collection<int, Service>
-     */
-    public function getService(): Collection
-    {
-        return $this->service;
-    }
-
-    public function addService(Service $service): self
-    {
-        if (!$this->service->contains($service)) {
-            $this->service->add($service);
-        }
-
-        return $this;
-    }
-
-    public function removeService(Service $service): self
-    {
-        $this->service->removeElement($service);
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -179,8 +150,27 @@ class Structure
         return $this;
     }
 
-    public function __toString()
+    /**
+     * @return Collection<int, Structure>
+     */
+    public function getStructure(): Collection
     {
-        return $this->name;
+        return $this->structure;
+    }
+
+    public function addStructure(Structure $structure): self
+    {
+        if (!$this->structure->contains($structure)) {
+            $this->structure->add($structure);
+        }
+
+        return $this;
+    }
+
+    public function removeStructure(Structure $structure): self
+    {
+        $this->structure->removeElement($structure);
+
+        return $this;
     }
 }
