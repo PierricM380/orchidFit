@@ -66,7 +66,6 @@ class Structure
         $this->updatedAt = new \DateTimeImmutable();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
