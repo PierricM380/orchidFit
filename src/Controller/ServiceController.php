@@ -126,5 +126,4 @@ class ServiceController extends AbstractController
 
         return $this->redirectToRoute('service.index');
     }
-
 }
