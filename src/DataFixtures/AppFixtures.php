@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Partner;
 use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Service;
@@ -39,7 +40,7 @@ class AppFixtures extends Fixture
             $structure
             ->setName($this->faker->word())
             ->setPostalAddress($this->faker->address())
-            ->setPhoneNumber($this->faker->phoneNumber())
+            ->setPhoneNumber($this->faker->numberBetween($min = 0, $max = 1000))
             ->setDescription($this->faker->text(50))
             ->setIsActive(mt_rand(0, 1) == 1 ? true : false);
 
@@ -49,6 +50,25 @@ class AppFixtures extends Fixture
 
             $structures[] = $structure;
             $manager->persist($structure);
+        }
+
+        // Partners
+        $partners = [];
+        for ($p = 0; $p < 5; $p++) {
+            $partner = new Partner();
+            $partner
+            ->setName($this->faker->word())
+            ->setPostalAddress($this->faker->address())
+            ->setPhoneNumber($this->faker->numberBetween($min = 0, $max = 1000))
+            ->setDescription($this->faker->text(50))
+            ->setIsActive(mt_rand(0, 1) == 1 ? true : false);
+
+            for ($d = 0; $d < mt_rand(1, 5); $d++) {
+                $partner->addStructure($structures[mt_rand(0, count($structures) - 1)]);
+            }
+
+            $partners[] = $partner;
+            $manager->persist($partner);
         }
 
         $manager->flush();
