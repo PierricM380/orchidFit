@@ -16,14 +16,14 @@ structures
 
     <!-- MAIN -->
     <main class="row d-flex justify-content-center mt-4">
-        
+
         <div class="col-10">
             <!-- Alert message structure actions -->
             {% for message in app.flashes('success') %}
-			<div class="alert alert-success col-4">
-				{{ message }}
-			</div>
-			{% endfor %}
+            <div class="alert alert-success col-4">
+                {{ message }}
+            </div>
+            {% endfor %}
             <!-- if structures return an empty array -->
             {% if not structures.items is same as([]) %}
             <div>
@@ -42,31 +42,31 @@ structures
                     <table class="table align-middle table-bordered table-striped table-hover shadow">
                         <thead>
                             <tr>
-                                <th scope="col">structures</th>
-                                <th scope="col">Nom du gérant</th>
-                                <th scope="col">Date de création</th>
-                                <th scope="col">Statut</th>
-                                <th scope="col">Visualiser</th>
-                                <th scope="col">Éditer</th>
-                                <th scope="col">Suppression</th>
+                                <th class="text-center" scope="col">structures</th>
+                                <th class="text-center" scope="col">Nom du gérant</th>
+                                <th class="text-center" scope="col">Date de création</th>
+                                <th class="text-center" scope="col">Statut</th>
+                                <th class="text-center" scope="col">Visualiser</th>
+                                <th class="text-center" scope="col">Éditer</th>
+                                <th class="text-center" scope="col">Suppression</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for structure in structures %}
                             <tr>
-                                <td scope="row">{{ structure.getName }}</td>
-                                <td scope="row"></td>
-                                <td>{{ structure.createdAt|date("d/m/Y") }}</td>
-                                <td scope="row">
+                                <td class="text-center" scope="row">{{ structure.getName }}</td>
+                                <td class="text-center" scope="row"></td>
+                                <td class="text-center" scope="row">{{ structure.createdAt|date("d/m/Y") }}</td>
+                                <td class="text-center" scope="row">
                                     {{ structure.isActive }}
                                 </td>
-                                <td scope="row">
-                                <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
+                                <td class="text-center" scope="row">
+                                    <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
                                 </td>
-                                <td scope="row">
-                                <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+                                <td class="text-center" scope="row">
+                                    <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
                                 </td>
-                                <td>
+                                <td class="text-center" scope="row">
                                     <a href="{{ path('structure.delete', { id: structure.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
                                 </td>
                             </tr>

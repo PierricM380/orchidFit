@@ -42,21 +42,21 @@
 					<table class="table align-middle table-bordered table-striped table-hover shadow">
 						<thead>
 							<tr>
-								<th scope="col">Services</th>
-								<th scope="col">Date de création</th>
-								<th scope="col">Édition</th>
-								<th scope="col">Suppression</th>
+								<th class="text-center" scope="col">Services</th>
+								<th class="text-center" scope="col">Date de création</th>
+								<th class="text-center" scope="col">Édition</th>
+								<th class="text-center" scope="col">Suppression</th>
 							</tr>
 						</thead>
 						<tbody>
 							{% for service in services %}
 							<tr>
-								<td scope="row">{{ service.name }}</td>
-								<td>{{ service.createdAt|date("d/m/Y") }}</td>
-								<td scope="row">
+								<td class="text-center" scope="row">{{ service.name }}</td>
+								<td class="text-center" scope="row">{{ service.createdAt|date("d/m/Y") }}</td>
+								<td class="text-center" scope="row">
 									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
 								</td>
-								<td scope="row">
+								<td class="text-center" scope="row">
 									<a href="{{ path('service.delete', { id: service.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
 								</td>
 							</tr>

@@ -42,31 +42,31 @@ partenaires
                     <table class="table align-middle table-bordered table-striped table-hover shadow">
                         <thead>
                             <tr>
-                                <th scope="col">Partenaires</th>
-                                <th scope="col">Nom du franchisé</th>
-                                <th scope="col">Date de création</th>
-                                <th scope="col">Statut</th>
-                                <th scope="col">Visualiser</th>
-                                <th scope="col">Éditer</th>
-                                <th scope="col">Suppression</th>
+                                <th class="text-center" scope="col">Partenaires</th>
+                                <th class="text-center" scope="col">Nom du franchisé</th>
+                                <th class="text-center" scope="col">Date de création</th>
+                                <th class="text-center" scope="col">Statut</th>
+                                <th class="text-center" scope="col">Visualiser</th>
+                                <th class="text-center" scope="col">Éditer</th>
+                                <th class="text-center" scope="col">Suppression</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for partner in partners %}
                             <tr>
-                                <td scope="row">{{ partner.getName }}</td>
-                                <td scope="row"></td>
-                                <td>{{ partner.createdAt|date("d/m/Y") }}</td>
-                                <td scope="row">
+                                <td class="text-center" scope="row">{{ partner.getName }}</td>
+                                <td class="text-center" scope="row"></td>
+                                <td class="text-center" scope="row">{{ partner.createdAt|date("d/m/Y") }}</td>
+                                <td class="text-center" scope="row">
                                     {{ partner.isActive }}
                                 </td>
-                                <td scope="row">
+                                <td class="text-center" scope="row">
                                     <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
                                 </td>
-                                <td scope="row">
+                                <td class="text-center" scope="row">
                                     <a href="{{ path('partner.edit', { id: partner.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
                                 </td>
-                                <td>
+                                <td class="text-center" scope="row">
                                     <a href="{{ path('partner.delete', { id: partner.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
                                 </td>
                             </tr>
