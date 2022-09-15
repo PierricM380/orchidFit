@@ -2,7 +2,7 @@
 
 {% block title %}
 {{ parent() }}
-structures
+partenaires
 {% endblock %}
 
 {% block body %}
@@ -10,40 +10,40 @@ structures
     <!-- HEADER -->
     <header class="row mt-4">
         <div class="col-12 d-flex justify-content-center">
-            <h1>Structures</h1>
+            <h1>Partenaires</h1>
         </div>
     </header>
 
     <!-- MAIN -->
     <main class="row d-flex justify-content-center mt-4">
-        
+
         <div class="col-10">
-            <!-- Alert message structure actions -->
-            {% for message in app.flashes('success') %}
-			<div class="alert alert-success col-4">
-				{{ message }}
-			</div>
-			{% endfor %}
-            <!-- if structures return an empty array -->
-            {% if not structures.items is same as([]) %}
+            <!-- Alert message partner actions -->
+          {% for message in app.flashes('success') %}
+            <div class="alert alert-success col-4">
+                {{ message }}
+            </div>
+            {% endfor %}
+            <!-- if partners return an empty array -->
+            {% if not partners.items is same as([]) %}
             <div>
                 <p>
                     Il y a
-                    {{ structures.getTotalItemCount }}
-                    structure(s) au total
+                    {{ partners.getTotalItemCount }}
+                    partner(s) au total
                 </p>
 
-                <a href="{{ path('structure.new') }}" class="btn btn-sm btn-primary shadow">
-                    Créer une structure
+                <a href="{{ path('partner.new') }}" class="btn btn-sm btn-primary shadow">
+                    Créer un partenaire
                 </a>
 
-                <!-- structures list -->
+                <!-- partners list -->
                 <div class="table-responsive mt-2">
                     <table class="table align-middle table-bordered table-striped table-hover shadow">
                         <thead>
                             <tr>
-                                <th scope="col">structures</th>
-                                <th scope="col">Nom du gérant</th>
+                                <th scope="col">Partenaires</th>
+                                <th scope="col">Nom du franchisé</th>
                                 <th scope="col">Date de création</th>
                                 <th scope="col">Statut</th>
                                 <th scope="col">Visualiser</th>
@@ -52,22 +52,22 @@ structures
                             </tr>
                         </thead>
                         <tbody>
-                            {% for structure in structures %}
+                            {% for partner in partners %}
                             <tr>
-                                <td scope="row">{{ structure.getName }}</td>
+                                <td scope="row">{{ partner.getName }}</td>
                                 <td scope="row"></td>
-                                <td>{{ structure.createdAt|date("d/m/Y") }}</td>
+                                <td>{{ partner.createdAt|date("d/m/Y") }}</td>
                                 <td scope="row">
-                                    {{ structure.isActive }}
+                                    {{ partner.isActive }}
                                 </td>
                                 <td scope="row">
-                                <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
+                                    <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
                                 </td>
                                 <td scope="row">
-                                <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+                                    <a href="{{ path('partner.edit', { id: partner.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
                                 </td>
                                 <td>
-                                    <a href="{{ path('structure.delete', { id: structure.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
+                                    <a href="{{ path('partner.delete', { id: partner.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -77,16 +77,16 @@ structures
 
                 <!-- pagination -->
                 <div class="navigation d-flex justify-content-center mt-2">
-                    {{ knp_pagination_render(structures) }}
+                    {{ knp_pagination_render(partners) }}
                 </div>
             </div>
         </div>
         {% else %}
         <div class="col-10">
-            <p>Il n'y a pas de structures</p>
+            <p>Il n'y a pas de partnaires</p>
 
-            <a href="{{ path('structure.new') }}" class="btn btn-sm btn-primary">
-                Créer une structure
+            <a href="{{ path('partner.new') }}" class="btn btn-sm btn-primary">
+                Créer un partnaire
             </a>
         </div>
         {% endif %}

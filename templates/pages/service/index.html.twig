@@ -17,7 +17,7 @@
 	<!-- MAIN -->
 	<main class="row d-flex justify-content-center mt-4">
 		<div class="col-10">
-		<!-- Alert message service created -->
+		<!-- Alert message service actions -->
 			{% for message in app.flashes('success') %}
 			<div class="alert alert-success col-3">
 				{{ message }}
@@ -43,9 +43,8 @@
 						<thead>
 							<tr>
 								<th scope="col">Services</th>
-								<th scope="col">Statut</th>
 								<th scope="col">Date de création</th>
-								<th scope="col">Éditer</th>
+								<th scope="col">Édition</th>
 								<th scope="col">Suppression</th>
 							</tr>
 						</thead>
@@ -53,9 +52,6 @@
 							{% for service in services %}
 							<tr>
 								<td scope="row">{{ service.name }}</td>
-								<td scope="row">
-									{{ service.isActive }}
-								</td>
 								<td>{{ service.createdAt|date("d/m/Y") }}</td>
 								<td scope="row">
 									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
