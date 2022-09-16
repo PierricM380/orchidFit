@@ -7,6 +7,7 @@ use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Service;
 use App\Entity\Structure;
+use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -69,6 +70,18 @@ class AppFixtures extends Fixture
 
             $partners[] = $partner;
             $manager->persist($partner);
+        }
+
+        // Users
+        for ($u = 0; $u < 5; $u++) {
+            $user = new User();
+            $user
+                ->setFullName($this->faker->name())
+                ->setEmail($this->faker->email())
+                ->setRoles(['ROLE_USER'])
+                ->setPlainPassword('ecf2022');
+
+                $manager->persist($user);
         }
 
         $manager->flush();
