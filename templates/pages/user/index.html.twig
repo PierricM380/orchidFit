@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }}
+utilisateurs
+{% endblock %}
+
+{% block body %}
+<Div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row mt-4">
+        <div class="col-12 d-flex justify-content-center">
+            <h1>Utilisateurs</h1>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="row d-flex justify-content-center mt-4">
+
+        <div class="col-12 col-lg-10">
+            <!-- Alert message user actions  -->
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success col-6 col-lg-4">
+                {{ message }}
+            </div>
+            {% endfor %}
+            <!-- if users return an empty array -->
+            {% if not users.items is same as([]) %}
+            <div>
+                <p>
+                    Il y a
+                    {{ users.getTotalItemCount }}
+                    utilisateur(s) au total
+                </p>
+
+                <a href="{{ path('user.new') }}" class="btn btn-sm btn-primary shadow">
+                    Créer un utilisateur
+                </a>
+
+                <!-- users list -->
+                <div class="table-responsive mt-2">
+                    <table class="table align-middle table-bordered table-striped table-hover shadow">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">utilisateurs</th>
+                                <th class="text-center" scope="col">Email</th>
+                                <th class="text-center" scope="col">Date de création</th>
+                                <th class="text-center" scope="col">Éditer</th>
+                                <th class="text-center" scope="col">Suppression</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td class="text-center" scope="row">{{ user.fullName }}</td>
+                                <td class="text-center" scope="row">{{ user.email }}</td>
+                                <td class="text-center" scope="row">{{ user.createdAt|date("d/m/Y") }}</td>
+                                <td class="text-center" scope="row">
+                                    <a href="{{ path('user.edit', { id: user.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+                                </td>
+                                <td class="text-center" scope="row">
+                                    <a href="{{ path('user.delete', { id: user.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- pagination -->
+                <div class="navigation d-flex justify-content-center mt-2">
+                    {{ knp_pagination_render(users) }}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 col-lg-10">
+            <p>Il n'y a pas d'utilisateurs</p>
+
+            <a href="{{ path('user.new') }}" class="btn btn-sm btn-primary">
+                Créer un utilisateurs
+            </a>
+        </div>
+        {% endif %}
+</div>
+</main>
+</Div>
+{% endblock %}
