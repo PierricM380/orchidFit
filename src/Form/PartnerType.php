@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Partner;
 use App\Entity\Structure;
+use App\Repository\UserRepository;
 use App\Repository\StructureRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,6 +32,22 @@ class PartnerType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label'
                 ],
+            ])
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'query_builder' => function (UserRepository $r) {
+                    return $r
+                        ->createQueryBuilder('i')
+                        ->orderBy('i.fullName', 'ASC');
+                },
+                'label' => 'Nom du franchisé',
+                'label_attr' => [
+                    'class' => 'form-label mt-2'
+                ],
+                'required' => false,
+                'choice_label' => 'fullName',
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('postalAddress', TextType::class, [
                 'attr' => [

@@ -27,6 +27,18 @@ ajout partenaire
                 </div>
             </div>
 
+            {{ form_label(form.users) }}
+            <br>
+            
+            <div id="users-wrapper">
+                {% for field in form.users %}
+                <div style="min-width: 10%;">
+                    {{ form_widget(field) }}
+                    {{ form_label(field) }}
+                </div>
+                {% endfor %}
+            </div>
+
             <div class="form-group">
                 {{ form_label(form.postalAddress) }}
                 {{ form_widget(form.postalAddress) }}
