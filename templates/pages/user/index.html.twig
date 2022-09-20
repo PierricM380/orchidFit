@@ -20,7 +20,7 @@ utilisateurs
         <div class="col-12 col-lg-10">
             <!-- Alert message user actions  -->
             {% for message in app.flashes('success') %}
-            <div class="alert alert-success col-6 col-lg-4">
+            <div class="alert alert-success col-6 col-lg-3">
                 {{ message }}
             </div>
             {% endfor %}
@@ -45,7 +45,6 @@ utilisateurs
                                 <th class="text-center" scope="col">utilisateurs</th>
                                 <th class="text-center" scope="col">Email</th>
                                 <th class="text-center" scope="col">Date de création</th>
-                                <th class="text-center" scope="col">Éditer</th>
                                 <th class="text-center" scope="col">Suppression</th>
                             </tr>
                         </thead>
@@ -55,9 +54,6 @@ utilisateurs
                                 <td class="text-center" scope="row">{{ user.fullName }}</td>
                                 <td class="text-center" scope="row">{{ user.email }}</td>
                                 <td class="text-center" scope="row">{{ user.createdAt|date("d/m/Y") }}</td>
-                                <td class="text-center" scope="row">
-                                    <a href="{{ path('user.edit', { id: user.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
-                                </td>
                                 <td class="text-center" scope="row">
                                     <a href="{{ path('user.delete', { id: user.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
                                 </td>

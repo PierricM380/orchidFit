@@ -37,7 +37,7 @@ class RegistrationType extends AbstractType
                 ],
                 'label' => 'Email',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-2'
                 ]
             ])
             ->add('roles', ChoiceType::class, [
@@ -52,7 +52,7 @@ class RegistrationType extends AbstractType
                 'multiple' => true,
                 'label' => 'Rôles',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-2'
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -63,7 +63,7 @@ class RegistrationType extends AbstractType
                     ],
                     'label' => 'Mot de passe',
                     'label_attr' => [
-                        'class' => 'form-label  mt-4'
+                        'class' => 'form-label  mt-2'
                     ]
                 ],
                 'second_options' => [
@@ -72,7 +72,7 @@ class RegistrationType extends AbstractType
                     ],
                     'label' => 'Confirmation du mot de passe',
                     'label_attr' => [
-                        'class' => 'form-label  mt-4'
+                        'class' => 'form-label  mt-2'
                     ]
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas'
