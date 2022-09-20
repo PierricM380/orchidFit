@@ -62,7 +62,8 @@ ajout structure
 
             {{ form_label(form.service) }}
             <br>
-            <div id="ingredients-wrapper">
+            
+            <div id="services-wrapper">
                 {% for field in form.service %}
                 <div style="min-width: 10%;">
                     {{ form_widget(field) }}
@@ -70,7 +71,6 @@ ajout structure
                 </div>
                 {% endfor %}
             </div>
-
 
             <div class="form-group">
                 {{ form_row(form.submit) }}

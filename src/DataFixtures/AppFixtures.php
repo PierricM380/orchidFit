@@ -24,6 +24,7 @@ class AppFixtures extends Fixture
     {
         // Services
         $services = [];
+
         for ($o = 0; $o < 10; $o++) {
             $service = new Service();
             $service
@@ -36,6 +37,7 @@ class AppFixtures extends Fixture
 
         //Structures
         $structures = [];
+
         for ($s = 0; $s < 5; $s++) {
             $structure = new Structure();
             $structure
@@ -55,6 +57,7 @@ class AppFixtures extends Fixture
 
         // Partners
         $partners = [];
+
         for ($p = 0; $p < 5; $p++) {
             $partner = new Partner();
             $partner
@@ -73,6 +76,8 @@ class AppFixtures extends Fixture
         }
 
         // Users
+        $users = [];
+
         for ($u = 0; $u < 5; $u++) {
             $user = new User();
             $user
@@ -81,6 +86,7 @@ class AppFixtures extends Fixture
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('ecf2022');
 
+                $users[] = $user;
                 $manager->persist($user);
         }
 

@@ -16,6 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
+    
     #[Route('/utilisateur', name: 'user.index', methods: ['GET'])]
     public function index(UserRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -65,6 +66,51 @@ class UserController extends AbstractController
     }
 
     /**
+     * This controller allow us to edit user's password
+     *
+     * @param User $user
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserPasswordHasherInterface $hasher
+     * @return Response
+     */
+    #[Route('/utilisateur/edition-mot-de-passe/{id}', 'user.edit.password', methods: ['GET', 'POST'])]
+    public function editPassword(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
+    {
+        $form = $this->createForm(UserPasswordType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($hasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
+                $user->setUpdatedAt(new \DateTimeImmutable());
+                $user->setPlainPassword(
+                    $form->getData()['newPassword']
+                );
+
+                $manager->persist($user);
+                $manager->flush();
+
+                /* $this->addFlash(
+                    'success',
+                    'le mot a été modifié'
+                ); */
+
+               return $this->redirectToRoute(('user.index'));
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'le mot de passe renseigné est incorrect'
+                );
+            }
+        }
+
+        return $this->render('pages/user/edit_password.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * This controller allows us to delete a structure
      *
      * @param EntityManagerInterface $manager
@@ -83,40 +129,5 @@ class UserController extends AbstractController
         );
 
         return $this->redirectToRoute('user.index');
-    }
-
-    #[Route('/utilisateur/edition-mot-de-passe/{id}', 'user.edit.password', methods: ['GET', 'POST'])]
-    public function editPassword(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
-    {
-        $form = $this->createForm(UserPasswordType::class);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($hasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
-                $user->setUpdatedAt(new \DateTimeImmutable());
-                $user->setPlainPassword(
-                    $form->getData()['newPassword']
-                );
-
-                $manager->persist($user);
-                $manager->flush();
-                $this->addFlash(
-                    'success',
-                    'le mot a été modifié'
-                );
-
-               return $this->redirectToRoute(('user.index'));
-            } else {
-                $this->addFlash(
-                    'warning',
-                    'le mot de passe renseigné est incorrect'
-                );
-            }
-        }
-
-        return $this->render('pages/user/edit_password.html.twig', [
-            'form' => $form->createView()
-        ]);
     }
 }

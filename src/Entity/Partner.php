@@ -52,13 +52,12 @@ class Partner
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $updatedAt;
-
+    
     public function __construct()
     {
         $this->structure = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable;
         $this->updatedAt = new \DateTimeImmutable();
-        
     }
 
     public function getId(): ?int

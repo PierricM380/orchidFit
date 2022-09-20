@@ -28,17 +28,12 @@ class Service
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\NotNull()]
-    private ?\DateTimeImmutable $updatedAt = null;
-
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->updateddAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -85,17 +80,5 @@ class Service
     public function __toString()
     {
         return $this->name;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 }
