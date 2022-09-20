@@ -2,18 +2,20 @@
 
 namespace App\Form;
 
-use App\Entity\Structure;
+use App\Entity\User;
 use App\Entity\Service;
+use App\Entity\Structure;
+use App\Repository\UserRepository;
 use App\Repository\ServiceRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class StructureType extends AbstractType
@@ -31,6 +33,22 @@ class StructureType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label'
                 ],
+            ])
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'query_builder' => function (UserRepository $r) {
+                    return $r
+                        ->createQueryBuilder('i')
+                        ->orderBy('i.fullName', 'ASC');
+                },
+                'label' => 'Nom du gérant',
+                'label_attr' => [
+                    'class' => 'form-label mt-2'
+                ],
+                'required' => false,
+                'choice_label' => 'fullName',
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('postalAddress', TextType::class, [
                 'attr' => [
