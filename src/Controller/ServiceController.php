@@ -5,9 +5,10 @@ namespace App\Controller;
 use App\Entity\Service;
 use App\Form\ServiceType;
 use App\Repository\ServiceRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,6 +26,7 @@ class ServiceController extends AbstractController
      * @return Response
      */
     #[Route('/service', name: 'service.index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(ServiceRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $services = $paginator->paginate(
@@ -46,6 +48,7 @@ class ServiceController extends AbstractController
      * @return Response
      */
     #[Route('/service/nouveau', name: 'service.new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $service = new Service();
@@ -80,6 +83,7 @@ class ServiceController extends AbstractController
      * @return Response
      */
     #[Route('/service/edition/{id}', name: 'service.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(EntityManagerInterface $manager, Request $request, Service $service): Response
     {
         $form = $this->createForm(ServiceType::class, $service);
@@ -112,6 +116,7 @@ class ServiceController extends AbstractController
      * @return Response
      */
     #[Route('/service/suppression/{id}', 'service.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Service $service

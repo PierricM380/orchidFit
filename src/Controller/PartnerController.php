@@ -10,6 +10,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PartnerController extends AbstractController
@@ -23,6 +24,7 @@ class PartnerController extends AbstractController
      * @return Response
      */
     #[Route('/partenaire', name: 'partner.index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(PartnerRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $partners = $paginator->paginate(
@@ -44,6 +46,7 @@ class PartnerController extends AbstractController
      * @return Response
      */
     #[Route('/partenaire/nouveau', name: 'partner.new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $partner = new Partner();
@@ -64,7 +67,6 @@ class PartnerController extends AbstractController
             return $this->redirectToRoute('partner.index');
         }
 
-
         return $this->render('pages/partner/new.html.twig', [
             'form' => $form->createView()
         ]);
@@ -79,6 +81,7 @@ class PartnerController extends AbstractController
      * @return Response
      */
     #[Route('/partenaire/edition/{id}', name: 'partner.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(EntityManagerInterface $manager, Request $request, Partner $partner): Response
     {
         $form = $this->createForm(PartnerType::class, $partner);
@@ -111,6 +114,7 @@ class PartnerController extends AbstractController
      * @return Response
      */
     #[Route('/partenaire/suppression/{id}', 'partner.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(EntityManagerInterface $manager, Partner $structure): Response
     {
         $manager->remove($structure);

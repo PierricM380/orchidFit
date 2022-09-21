@@ -10,6 +10,8 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StructureController extends AbstractController
@@ -23,6 +25,7 @@ class StructureController extends AbstractController
      * @return Response
      */
     #[Route('/structure', name: 'structure.index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(StructureRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $structures = $paginator->paginate(
@@ -44,6 +47,7 @@ class StructureController extends AbstractController
      * @return Response
      */
     #[Route('/structure/nouveau', name: 'structure.new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $structure = new Structure();
@@ -64,7 +68,6 @@ class StructureController extends AbstractController
             return $this->redirectToRoute('structure.index');
         }
 
-
         return $this->render('pages/structure/new.html.twig', [
             'form' => $form->createView()
         ]);
@@ -79,6 +82,7 @@ class StructureController extends AbstractController
      * @return Response
      */
     #[Route('/structure/edition/{id}', name: 'structure.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(EntityManagerInterface $manager, Request $request, Structure $structure): Response
     {
         $form = $this->createForm(StructureType::class, $structure);
@@ -111,6 +115,7 @@ class StructureController extends AbstractController
      * @return Response
      */
     #[Route('/structure/suppression/{id}', 'structure.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Structure $structure
