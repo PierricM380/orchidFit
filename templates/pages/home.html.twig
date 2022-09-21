@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }}
+accueil{% endblock %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="card card text-center shadow">
+                <h1 class="card-header">Bienvenue sur Orchid'fit</h1>
+                <div class="card-body">
+                    <p class="card-text">
+                        Cette application est mise à disposition pour tout ses collaborateurs, afin qu'ils puissent consulter leurs informations et droits relatifs au fitness.
+                    </p>
+                    <p class="card-text">
+                        Connectez-vous à votre compte afin de gérer celui-ci.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
