@@ -9,21 +9,13 @@
 			{% block title %}Orchid'Fit -
 			{% endblock %}
 		</title>
-		<!-- Dependencies -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/_variables.scss">
 
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
+		<!-- Dependencies -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/_variables.scss">
 		{% endblock %}
-	</head>
-
-	<body>
-		{% block nav %}
-			{% include "partials/_nav.html.twig" %}
-		{% endblock %}
-
-		{% block body %}{% endblock %}
 
 		<!-- Javascript -->
 		{% block javascripts %}
@@ -33,5 +25,17 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 		<script src="https://kit.fontawesome.com/5528e9fcbf.js" crossorigin="anonymous"></script>
 		<noscript>Veuillez, s'il vous plaît, activer JavaScript pour pouvoir bénéficier de toutes lesfonctionnalités</noscript>
+	</head>
+
+	<body>
+		{% block nav %}
+			{% include "partials/_nav.html.twig" %}
+		{% endblock %}
+
+		{% block body %}{% endblock %}
+
+		{% block footer %}
+			{% include "partials/_footer.html.twig" %}
+		{% endblock %}
 	</body>
 </html>
