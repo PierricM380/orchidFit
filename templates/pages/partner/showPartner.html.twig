@@ -18,8 +18,8 @@
         <div class="col-11 col-lg-6">
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="col-11 col-lg-4">
-                        <img src="..." class="img-fluid rounded-start" alt="...">
+                    <div class="col-11 col-lg-4 d-flex justify-content-center align-items-center">
+                        <img src="{{ vich_uploader_asset(partner, 'imageFile') }}" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-11  col-lg-8">
                         <div class="card-body">
@@ -60,7 +60,7 @@
                         <p class="card-text">État: {{ structure.isActive }}</p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="" class="btn btn-sm btn-info shadow">Consulter</a>
+                        <a href="{{ path('structure.show', { id: structure.id }) }}" class="btn btn-sm btn-info shadow">Consulter</a>
                     </div>
                 </div>
             </div>

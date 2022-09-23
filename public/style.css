@@ -1,0 +1,12 @@
+body {
+    flex-direction: column;
+    display: flex;
+    min-height: 100vh;
+    justify-content: space-between;
+  }
+
+.form-image img {
+    width: 100px;
+    margin: 10px;
+  }
+  

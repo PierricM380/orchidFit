@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Repository\StructureRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -105,6 +106,16 @@ class PartnerType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Image du partenaire',
+                'label_attr' => [
+                    'class' => 'form-label mt-2'
+                ],
+                'required' => false
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

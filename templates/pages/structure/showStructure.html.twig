@@ -35,15 +35,12 @@
                         <p class="card-text">État: {{ structure.isActive }}</p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="" class="btn btn-sm btn-warning shadow">modifier</a>
+                        <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
                     </div>
                     <ul class="list-group">
-                        {{ for service in structure.service }}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ service.name}}
                             <span><a href="" class="btn btn-sm btn-warning shadow">modifier</a></span>
                         </li>
-                        {{ endfor}}
                     </ul>
                 </div>
             </div>

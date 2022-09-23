@@ -29,7 +29,7 @@ mofifier partenaire
 
             {{ form_label(form.users) }}
             <br>
-            
+
             <div id="users-wrapper">
                 {% for field in form.users %}
                 <div style="min-width: 10%;">
@@ -83,6 +83,10 @@ mofifier partenaire
                 {% endfor %}
             </div>
 
+            <div class="form-group form-image">
+                {{ form_label(form.imageFile) }}
+                {{ form_widget(form.imageFile) }}
+            </div>
 
             <div class="form-group">
                 {{ form_row(form.submit) }}
