@@ -26,6 +26,9 @@ class Partner
     #[Assert\Length(min: 2, max: 50)]
     private ?string $name;
 
+    #[ORM\ManyToMany(targetEntity: User::class)]
+    private Collection $users;
+
     #[ORM\Column(type: 'string', length: 100)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 100)]
@@ -53,9 +56,6 @@ class Partner
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $updatedAt;
 
-    #[ORM\ManyToMany(targetEntity: User::class)]
-    private Collection $users;
-    
     public function __construct()
     {
         $this->structure = new ArrayCollection();
@@ -77,6 +77,42 @@ class Partner
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    /**
+     * Set the value of users
+     *
+     * @return  self
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->users->removeElement($user);
 
         return $this;
     }
@@ -161,6 +197,18 @@ class Partner
         return $this->structure;
     }
 
+    /**
+     * Set the value of structure
+     *
+     * @return  self
+     */
+    public function setStructure($structure)
+    {
+        $this->structure = $structure;
+
+        return $this;
+    }
+
     public function addStructure(Structure $structure): self
     {
         if (!$this->structure->contains($structure)) {
@@ -177,39 +225,9 @@ class Partner
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-     
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->users;
         return $this->structure;
     }
-
-    /**
-     * Set the value of users
-     *
-     * @return  self
-     */
 }

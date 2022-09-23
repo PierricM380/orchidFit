@@ -26,6 +26,9 @@ class Structure
     #[Assert\Length(min: 2, max: 50)]
     private ?string $name;
 
+    #[ORM\ManyToMany(targetEntity: User::class)]
+    private Collection $users;
+
     #[ORM\Column(type: 'string', length: 100)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 100)]
@@ -41,10 +44,6 @@ class Structure
     #[ORM\Column(type: 'boolean')]
     private ?bool $isActive;
 
-    #[ORM\ManyToMany(targetEntity: Service::class)]
-    #[Assert\NotNull()]
-    private Collection $service;
-
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt;
@@ -52,8 +51,9 @@ class Structure
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $updatedAt;
 
-    #[ORM\ManyToMany(targetEntity: User::class)]
-    private Collection $users;
+    #[ORM\ManyToMany(targetEntity: Service::class)]
+    #[Assert\NotNull()]
+    private Collection $service;
 
     public function __construct()
     {
@@ -82,6 +82,42 @@ class Structure
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    /**
+     * Set the value of users
+     *
+     * @return  self
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->users->removeElement($user);
 
         return $this;
     }
@@ -142,6 +178,18 @@ class Structure
         return $this->service;
     }
 
+    /**
+     * Set the value of service
+     *
+     * @return  self
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
     public function addService(Service $service): self
     {
         if (!$this->service->contains($service)) {
@@ -185,29 +233,5 @@ class Structure
     public function __toString()
     {
         return $this->name;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
-
-        return $this;
     }
 }
