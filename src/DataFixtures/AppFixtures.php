@@ -22,6 +22,23 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        // Users
+        $users = [];
+
+        for ($u = 0; $u < 6; $u++) {
+            $user = new User();
+            $user
+                ->setFullName($this->faker->name())
+                ->setEmail($this->faker->email())
+                ->setRoles(['ROLE_PARTNER', 'ROLE_STRUCTURE'])
+                ->setPlainPassword('ecf');
+
+                $users[] = $user;
+                $manager->persist($user);
+        }
+
+        $manager->flush();
+
         // Services
         $services = [];
 
@@ -42,8 +59,9 @@ class AppFixtures extends Fixture
             $structure = new Structure();
             $structure
             ->setName($this->faker->word())
+            ->setUsers($users[mt_rand(0, count($users) - 1)])
             ->setPostalAddress($this->faker->address())
-            ->setPhoneNumber(mt_rand(1000000000, 9999999999))
+            ->setPhoneNumber($this->faker->phoneNumber())
             ->setDescription($this->faker->text(50))
             ->setIsActive(mt_rand(0, 1) == 1 ? true : false);
 
@@ -62,8 +80,9 @@ class AppFixtures extends Fixture
             $partner = new Partner();
             $partner
             ->setName($this->faker->word())
+            ->setUsers($users[mt_rand(0, count($users) - 1)])
             ->setPostalAddress($this->faker->address())
-            ->setPhoneNumber($this->faker->numberBetween($min = 0, $max = 1000))
+            ->setPhoneNumber($this->faker->phoneNumber())
             ->setDescription($this->faker->text(50))
             ->setIsActive(mt_rand(0, 1) == 1 ? true : false);
 
@@ -74,22 +93,5 @@ class AppFixtures extends Fixture
             $partners[] = $partner;
             $manager->persist($partner);
         }
-
-        // Users
-        $users = [];
-
-        for ($u = 0; $u < 5; $u++) {
-            $user = new User();
-            $user
-                ->setFullName($this->faker->name())
-                ->setEmail($this->faker->email())
-                ->setRoles(['ROLE_USER'])
-                ->setPlainPassword('ecf2022');
-
-                $users[] = $user;
-                $manager->persist($user);
-        }
-
-        $manager->flush();
     }
 }
