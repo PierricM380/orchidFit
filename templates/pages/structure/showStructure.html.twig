@@ -38,9 +38,15 @@
                         <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
                     </div>
                     <ul class="list-group">
+                        {% for service in structure.service %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><a href="" class="btn btn-sm btn-warning shadow">modifier</a></span>
+                        <div class="row">
+                        {{ service.name }}
+                        {{ service.isActive}}
+                        </div>
+                            <span><a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a></span>
                         </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
