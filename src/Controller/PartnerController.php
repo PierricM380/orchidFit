@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Partner;
+use App\Entity\Structure;
 use App\Form\PartnerType;
 use App\Repository\PartnerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +25,7 @@ class PartnerController extends AbstractController
      * @return Response
      */
     #[Route('/partenaire', name: 'partner.index', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function index(PartnerRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $partners = $paginator->paginate(
@@ -37,7 +38,7 @@ class PartnerController extends AbstractController
             'partners' => $partners
         ]);
     }
-
+    
     /**
      * This controller alow to create a partner
      *
@@ -46,7 +47,7 @@ class PartnerController extends AbstractController
      * @return Response
      */
     #[Route('/partenaire/nouveau', name: 'partner.new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $partner = new Partner();
@@ -81,7 +82,7 @@ class PartnerController extends AbstractController
      * @return Response
      */
     #[Route('/partenaire/edition/{id}', name: 'partner.edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function edit(EntityManagerInterface $manager, Request $request, Partner $partner): Response
     {
         $form = $this->createForm(PartnerType::class, $partner);
@@ -114,7 +115,7 @@ class PartnerController extends AbstractController
      * @return Response
      */
     #[Route('/partenaire/suppression/{id}', 'partner.delete', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function delete(EntityManagerInterface $manager, Partner $structure): Response
     {
         $manager->remove($structure);
@@ -126,5 +127,19 @@ class PartnerController extends AbstractController
         );
 
         return $this->redirectToRoute('partner.index');
+    }
+
+    /**
+     * 
+     * This controller allows us to show a partner details
+     * @param Partner $partner
+     * @return Response
+     */
+    #[Route('partenaire/consulter/{id}', name: 'partner.show', methods: ['GET'])]
+    public function show(Partner $partner): Response
+    {
+        return $this->render('pages/partner/showPartner.html.twig', [
+            'partner' => $partner,
+        ]);
     }
 }

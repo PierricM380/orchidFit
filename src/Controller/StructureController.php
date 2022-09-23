@@ -25,7 +25,7 @@ class StructureController extends AbstractController
      * @return Response
      */
     #[Route('/structure', name: 'structure.index', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function index(StructureRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $structures = $paginator->paginate(
@@ -47,7 +47,7 @@ class StructureController extends AbstractController
      * @return Response
      */
     #[Route('/structure/nouveau', name: 'structure.new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $structure = new Structure();
@@ -82,7 +82,7 @@ class StructureController extends AbstractController
      * @return Response
      */
     #[Route('/structure/edition/{id}', name: 'structure.edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function edit(EntityManagerInterface $manager, Request $request, Structure $structure): Response
     {
         $form = $this->createForm(StructureType::class, $structure);
@@ -115,7 +115,7 @@ class StructureController extends AbstractController
      * @return Response
      */
     #[Route('/structure/suppression/{id}', 'structure.delete', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function delete(
         EntityManagerInterface $manager,
         Structure $structure
@@ -129,5 +129,19 @@ class StructureController extends AbstractController
         );
 
         return $this->redirectToRoute('structure.index');
+    }
+
+    /**
+     * 
+     * This controller allows us to show a structure details
+     * @param Structure $structure
+     * @return Response
+     */
+    #[Route('structure/consulter/{id}', name: 'structure.show', methods: ['GET'])]
+    public function show(Structure $structure): Response
+    {
+        return $this->render('pages/structure/showStructure.html.twig', [
+            'structure' => $structure,
+        ]);
     }
 }

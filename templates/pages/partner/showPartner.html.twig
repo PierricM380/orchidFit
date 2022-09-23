@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} {{ partner.name }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row mt-4">
+        <div class="col-12 d-flex justify-content-center">
+            <h1>{{ partner.name }}</h1>
+        </div>
+    </header>
+    <!-- MAIN -->
+    <main class="row d-flex justify-content-center">
+        <!-- Partner Details -->
+        <div class="col-11 col-lg-6">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-11 col-lg-4">
+                        <img src="..." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-11  col-lg-8">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                {% for user in partner.users %}
+                                {{ user.fullName}}
+                                {% endfor %}
+                            </h2>
+                            <p class="card-text">Adresse: {{ partner.postalAddress }}</p>
+                            <p class="card-text">
+                                Email: {% for user in partner.users %}
+                                {{ user.email}}
+                                {% endfor %}
+                            </p>
+                            <p class="card-text">Téléphone: {{ partner.phoneNumber }}</p>
+                            <p class="card-text">{{ partner.description }}</p>
+                            <p class="card-text">État: {{ partner.isActive }}</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{{ path('partner.edit', { id: partner.id }) }}" class="btn btn-sm btn-warning shadow">Modifier</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Structures of partner -->
+        <div class="row row-cols-1 row-cols-lg-3 g-2 d-flex justify-content-center">
+            {% for structure in partner.structure %}
+            <div class="col">
+                <div class="card text-white bg-secondary">
+                    <h3 class="card-header">{{ structure.name }}</h3>
+                    <div class="card-body">
+                        {% for user in structure.users %}
+                        <p class="card-text">Gérant: {{ user.fullName }}
+                        <p class="card-text">Email: {{ user.email }}</p>
+                        {% endfor %}
+                        </p>
+                        <p class="card-text">État: {{ structure.isActive }}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="" class="btn btn-sm btn-info shadow">Consulter</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+{% endblock %}

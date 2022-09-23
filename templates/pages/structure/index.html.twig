@@ -61,7 +61,7 @@ structures
                                     {{ structure.isActive }}
                                 </td>
                                 <td class="text-center" scope="row">
-                                    <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
+                                    <a href="{{ path('structure.show', { id: structure.id }) }}" class="btn btn-sm btn-info shadow">Consulter</a>
                                 </td>
                                 <td class="text-center" scope="row">
                                     <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>

@@ -61,7 +61,7 @@ partenaires
                                     {{ partner.isActive }}
                                 </td>
                                 <td class="text-center" scope="row">
-                                    <a href="" class="btn btn-sm btn-primary shadow">Consulter</a>
+                                    <a href="{{ path('partner.show', {id: partner.id}) }}" class="btn btn-sm btn-info shadow">Consulter</a>
                                 </td>
                                 <td class="text-center" scope="row">
                                     <a href="{{ path('partner.edit', { id: partner.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>

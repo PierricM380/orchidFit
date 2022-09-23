@@ -18,7 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     #[Route('/utilisateur', name: 'user.index', methods: ['GET'])]
     public function index(UserRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -40,7 +40,7 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     #[Route('/utilisateur/nouveau', name: 'user.new', methods: ['POST', 'GET'])]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
@@ -77,7 +77,7 @@ class UserController extends AbstractController
      * @param UserPasswordHasherInterface $hasher
      * @return Response
      */
-    #[Security("is_granted('ROLE_USER') and user === choosenUser")]
+    /* #[Security("is_granted('ROLE_USER') and user === choosenUser")] */
     #[Route('/utilisateur/edition-mot-de-passe/{id}', 'user.edit.password', methods: ['GET', 'POST'])]
     public function editPassword(User $choosenUser, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {
@@ -122,7 +122,7 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/utilisateur/suppression/{id}', 'user.delete', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
+    /* #[IsGranted('ROLE_ADMIN')] */
     public function delete(EntityManagerInterface $manager, User $user): Response
     {
         $manager->remove($user);

@@ -184,7 +184,7 @@ class Partner
     {
         return $this->users;
     }
-
+     
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
@@ -200,4 +200,16 @@ class Partner
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->users;
+        return $this->structure;
+    }
+
+    /**
+     * Set the value of users
+     *
+     * @return  self
+     */
 }

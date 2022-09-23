@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
             $structure
             ->setName($this->faker->word())
             ->setPostalAddress($this->faker->address())
-            ->setPhoneNumber($this->faker->numberBetween($min = 0, $max = 1000))
+            ->setPhoneNumber(mt_rand(1000000000, 9999999999))
             ->setDescription($this->faker->text(50))
             ->setIsActive(mt_rand(0, 1) == 1 ? true : false);
 
