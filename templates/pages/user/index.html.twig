@@ -55,7 +55,15 @@ utilisateurs
                             <tr>
                                 <td class="text-center" scope="row">{{ user.fullName }}</td>
                                 <td class="text-center" scope="row">{{ user.email }}</td>
-                                <td class="text-center" scope="row"></td>
+                                <td class="text-center" scope="row">
+                                    {% for role in user.roles %}
+                                        {% if role == "ROLE_PARTNER" %}
+                                            Partenaire
+                                        {% elseif role == "ROLE_STRUCTURE" %}
+                                            Structure
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
                                 <td class="text-center" scope="row">{{ user.createdAt|date("d/m/Y") }}</td>
                                 <td class="text-center" scope="row">
                                     <a href="{{ path('user.delete', { id: user.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
