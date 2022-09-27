@@ -8,9 +8,10 @@ use App\Entity\Structure;
 use App\Repository\UserRepository;
 use App\Repository\ServiceRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -41,14 +42,16 @@ class StructureType extends AbstractType
                         ->createQueryBuilder('i')
                         ->orderBy('i.fullName', 'ASC');
                 },
-                'label' => 'Nom du gérant',
+                'label' => 'Nom du franchisé',
                 'label_attr' => [
                     'class' => 'form-label mt-2'
                 ],
-                'required' => false,
+                'attr' => [
+                    'class' => 'form-select'
+                ],
                 'choice_label' => 'fullName',
-                'multiple' => true,
-                'expanded' => true,
+                'multiple' => false,
+                'expanded' => false,
             ])
             ->add('postalAddress', TextType::class, [
                 'attr' => [
@@ -72,7 +75,10 @@ class StructureType extends AbstractType
                     'class' => 'form-label mt-2'
                 ]
             ])
-            ->add('description', TextareaType::class, [
+            ->add(
+                'description',
+                TextareaType::class,
+                [
                     'attr' => [
                         'class' => 'form-control',
                         'min' => 1,
@@ -94,18 +100,21 @@ class StructureType extends AbstractType
             ])
             ->add('service', EntityType::class, [
                 'class' => Service::class,
-                'query_builder' => function (ServiceRepository $r) {
-                    return $r
+                'query_builder' => function (ServiceRepository $s) {
+                    return $s
                         ->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
                 },
-                'label' => 'Services',
+                'attr' => [
+                    'class' => 'form-select',
+                ],
+                'multiple' => true,
+                'expanded' => false,
+                'label' => 'Structures',
                 'label_attr' => [
                     'class' => 'form-label mt-2'
                 ],
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
@@ -113,6 +122,19 @@ class StructureType extends AbstractType
                 ],
                 'label' => 'Valider'
             ]);
+
+        // Data transformer USERS
+        $builder->get('users')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($rolesArray) {
+                    // transform the array to a string
+                    return count($rolesArray) ? $rolesArray[0] : null;
+                },
+                function ($rolesString) {
+                    // transform the string back to an array
+                    return [$rolesString];
+                }
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

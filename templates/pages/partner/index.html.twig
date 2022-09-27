@@ -6,31 +6,31 @@ partenaires
 {% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-    <!-- HEADER -->
-    <header class="row mt-4">
-        <div class="col-12 d-flex justify-content-center">
-            <h1>Partenaires</h1>
-        </div>
-    </header>
+<!-- HEADER -->
+<header class="row">
+    <div class="col-12 d-flex justify-content-center">
+        <h1>Partenaires</h1>
+    </div>
+</header>
 
-    <!-- MAIN -->
-    <main class="row d-flex justify-content-center mt-4">
-
-        <div class="col-12 col-lg-10">
-            <!-- Alert message partner actions -->
-            {% for message in app.flashes('success') %}
-            <div class="alert alert-success col-12 col-lg-4">
-                {{ message }}
+<!-- MAIN -->
+<main class="container-fluid">
+    <div class="main_partner row">
+        <div class="col-12 col-lg-8">
+             <!-- Alert message user actions  -->
+             {% for message in app.flashes('success') %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <p class="mb-0">{{ message }}</p>
             </div>
             {% endfor %}
-            <!-- if partners return an empty array -->
+            <!-- if partners not return an empty array -->
             {% if not partners.items is same as([]) %}
             <div>
                 <p>
                     Il y a
                     {{ partners.getTotalItemCount }}
-                    partner(s) au total
+                    partenaire(s) au total
                 </p>
 
                 <a href="{{ path('partner.new') }}" class="btn btn-sm btn-primary shadow">
@@ -54,7 +54,7 @@ partenaires
                         <tbody>
                             {% for partner in partners %}
                             <tr>
-                                <td class="text-center" scope="row">{{ partner.getName }}</td>
+                                <td class="text-center" scope="row">{{ partner.name }}</td>
                                 <td class="text-center" scope="row"></td>
                                 <td class="text-center" scope="row">{{ partner.createdAt|date("d/m/Y") }}</td>
                                 <td class="text-center" scope="row">
@@ -90,7 +90,6 @@ partenaires
             </a>
         </div>
         {% endif %}
-</div>
+    </div>
 </main>
-</Div>
 {% endblock %}

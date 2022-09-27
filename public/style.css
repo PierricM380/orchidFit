@@ -1,12 +1,82 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
 body {
-    flex-direction: column;
-    display: flex;
-    min-height: 100vh;
-    justify-content: space-between;
-  }
+  font-family: 'Bahnschrift';
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* NAVIGATION BAR */
 
 .form-image img {
-    width: 100px;
-    margin: 10px;
+  width: 100px;
+  margin: 10px;
+}
+
+/* FOOTER */
+
+/* =================================================================================================================================== */
+
+/* AT LG BREAK-POINT */
+@media screen and (min-width: 992px) {
+
+  /* NAVIGATION BAR */
+  nav {
+    height: 100px;
   }
-  
+
+  /* HEADER */
+  header {
+    position: relative;
+    top: 125px;
+  }
+
+  header>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* MAIN */
+  .main_home,
+  .main_login,
+  .main_user,
+  .main_partner,
+  .main_structure {
+    position: relative;
+    top: 125px;
+    display: flex;
+    justify-content: center;
+    height: auto;
+  }
+
+  .main_user>.card,
+  .main_partner>.card,
+  .main_structure>.card {
+    color: white;
+    padding: 25px;
+  }
+
+  /* footer */
+  footer {
+    position: relative;
+    top: 275px;
+    height: 100px;
+  }
+
+  footer>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

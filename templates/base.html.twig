@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="author" content="Pierric Marye">
-		<title>
-			{% block title %}Orchid'Fit -
-			{% endblock %}
-		</title>
 
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
-		<!-- Dependencies -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/_variables.scss">
-		<link rel="stylesheet" href="/style.css">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Pierric Marye">
+	<title>
+		{% block title %}Orchid'Fit -
 		{% endblock %}
+	</title>
 
-		<!-- Javascript -->
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-		<script src="https://kit.fontawesome.com/5528e9fcbf.js" crossorigin="anonymous"></script>
-		<noscript>Veuillez, s'il vous plaît, activer JavaScript pour pouvoir bénéficier de toutes lesfonctionnalités</noscript>
-		{% endblock %}
-	</head>
+	{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<!-- Dependencies -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/_variables.scss">
+	<link rel="stylesheet" href="/style.css">
+	<link href="http://fonts.cdnfonts.com/css/bahnschrift" rel="stylesheet">
+	{% endblock %}
 
-	<body>
-		{% block nav %}
-			{% include "partials/_nav.html.twig" %}
-		{% endblock %}
+	<!-- Javascript -->
+	{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+	<script src="/jquery/jquery-3.6.0.min.js"></script>
+	<script src="https://kit.fontawesome.com/5528e9fcbf.js" crossorigin="anonymous"></script>
+	<noscript>Veuillez, s'il vous plaît, activer JavaScript pour pouvoir bénéficier de toutes lesfonctionnalités</noscript>
+	{% endblock %}
+</head>
 
-		{% block body %}{% endblock %}
+<body>
+	{% block nav %}
+	{% include "partials/_nav.html.twig" %}
+	{% endblock %}
 
-		{% block footer %}
-			{% include "partials/_footer.html.twig" %}
-		{% endblock %}
-	</body>
+	{% block body %}{% endblock %}
+
+	{% block footer %}
+	{% include "partials/_footer.html.twig" %}
+	{% endblock %}
+</body>
+
 </html>

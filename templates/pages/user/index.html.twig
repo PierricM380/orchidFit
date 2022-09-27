@@ -6,25 +6,26 @@ utilisateurs
 {% endblock %}
 
 {% block body %}
-<Div class="container-fluid">
-    <!-- HEADER -->
-    <header class="row mt-4">
-        <div class="col-12 d-flex justify-content-center">
-            <h1>Utilisateurs</h1>
-        </div>
-    </header>
+<!-- HEADER -->
+<header class="row">
+    <div class="col-12">
+        <h1>Utilisateurs</h1>
+    </div>
+</header>
 
-    <!-- MAIN -->
-    <main class="row d-flex justify-content-center mt-4">
-
-        <div class="col-12 col-lg-10">
+<!-- MAIN -->
+<main class="container-fluid">
+    <div class="main_user row">
+        <div class="col-11 col-lg-8">
             <!-- Alert message user actions  -->
             {% for message in app.flashes('success') %}
-            <div class="alert alert-success col-6 col-lg-3">
-                {{ message }}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <p class="mb-0">{{ message }}</p>
             </div>
             {% endfor %}
-            <!-- if users return an empty array -->
+
+            <!-- if users not return an empty array -->
             {% if not users.items is same as([]) %}
             <div>
                 <p>
@@ -44,6 +45,7 @@ utilisateurs
                             <tr>
                                 <th class="text-center" scope="col">utilisateurs</th>
                                 <th class="text-center" scope="col">Email</th>
+                                <th class="text-center" scope="col">Rôle</th>
                                 <th class="text-center" scope="col">Date de création</th>
                                 <th class="text-center" scope="col">Suppression</th>
                             </tr>
@@ -53,6 +55,7 @@ utilisateurs
                             <tr>
                                 <td class="text-center" scope="row">{{ user.fullName }}</td>
                                 <td class="text-center" scope="row">{{ user.email }}</td>
+                                <td class="text-center" scope="row"></td>
                                 <td class="text-center" scope="row">{{ user.createdAt|date("d/m/Y") }}</td>
                                 <td class="text-center" scope="row">
                                     <a href="{{ path('user.delete', { id: user.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
@@ -69,16 +72,15 @@ utilisateurs
                 </div>
             </div>
         </div>
+        <!-- if users not return an empty array -->
         {% else %}
-        <div class="col-12 col-lg-10">
+        <div class="col-11 col-lg-8">
             <p>Il n'y a pas d'utilisateurs</p>
-
             <a href="{{ path('user.new') }}" class="btn btn-sm btn-primary">
                 Créer un utilisateurs
             </a>
         </div>
         {% endif %}
-</div>
+    </div>
 </main>
-</Div>
 {% endblock %}

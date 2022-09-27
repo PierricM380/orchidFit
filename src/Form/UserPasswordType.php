@@ -45,7 +45,7 @@ class UserPasswordType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mt-4'
+                    'class' => 'btn btn-sm btn-primary shadow mt-4'
                 ],
                 'label' => 'Changer mon mot de passe'
             ]);

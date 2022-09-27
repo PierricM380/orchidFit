@@ -7,17 +7,18 @@ mofifier partenaire
 
 {% block body %}
 <!-- HEADER -->
-<header class="row mt-4">
-    <div class="col-12 d-flex justify-content-center">
+<header class="row my-4">
+    <div class="col-12">
         <h1>Modification d'un partenaire</h1>
     </div>
 </header>
 
 <!-- MAIN -->
+<!-- MAIN -->
 <main class="container-fluid">
-    <div class="row d-flex justify-content-center mt-4">
-        <div class="col-6 card text-white bg-secondary p-3">
-            {{ form_start(form) }}
+    <div class="main_partner row">
+        <div class="col-6 card bg-secondary">
+        {{ form_start(form) }}
             <div class="form-group">
                 {{ form_label(form.name) }}
                 {{ form_widget(form.name) }}
@@ -27,16 +28,8 @@ mofifier partenaire
                 </div>
             </div>
 
-            {{ form_label(form.users) }}
-            <br>
-
-            <div id="users-wrapper">
-                {% for field in form.users %}
-                <div style="min-width: 10%;">
-                    {{ form_widget(field) }}
-                    {{ form_label(field) }}
-                </div>
-                {% endfor %}
+            <div id="form-group">
+                {{ form_row(form.users) }}
             </div>
 
             <div class="form-group">

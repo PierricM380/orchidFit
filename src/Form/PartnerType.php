@@ -8,6 +8,7 @@ use App\Entity\Structure;
 use App\Repository\UserRepository;
 use App\Repository\StructureRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -45,10 +46,12 @@ class PartnerType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-2'
                 ],
-                'required' => false,
+                'attr' => [
+                    'class' => 'form-select'
+                ],
                 'choice_label' => 'fullName',
-                'multiple' => true,
-                'expanded' => true,
+                'multiple' => false,
+                'expanded' => false,
             ])
             ->add('postalAddress', TextType::class, [
                 'attr' => [
@@ -86,9 +89,11 @@ class PartnerType extends AbstractType
             ])
             ->add('isActive', CheckboxType::class, [
                 'label' => 'Statut',
-                'required' => false,
+                'label_attr' => [
+                    'class' => 'form-check-label'
+                ],
                 'attr' => [
-                    'class' => 'form-check-input shadow'
+                    'class' => 'form-check-input'
                 ]
             ])
             ->add('structure', EntityType::class, [
@@ -98,14 +103,16 @@ class PartnerType extends AbstractType
                         ->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
                 },
+                'attr' => [
+                    'class' => 'form-select',
+                ],
+                'multiple' => true,
+                'expanded' => false,
                 'label' => 'Structures',
                 'label_attr' => [
                     'class' => 'form-label mt-2'
                 ],
-                'required' => false,
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
             ])
             ->add('imageFile', VichImageType::class, [
                 'attr' => [
@@ -123,6 +130,19 @@ class PartnerType extends AbstractType
                 ],
                 'label' => 'Valider'
             ]);
+
+        // Data transformer USERS
+        $builder->get('users')
+        ->addModelTransformer(new CallbackTransformer(
+            function ($rolesArray) {
+                // transform the array to a string
+                return count($rolesArray) ? $rolesArray[0] : null;
+            },
+            function ($rolesString) {
+                // transform the string back to an array
+                return [$rolesString];
+            }
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
