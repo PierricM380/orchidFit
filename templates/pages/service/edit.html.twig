@@ -6,17 +6,21 @@ modifier service
 {% endblock %}
 
 {% block body %}
+<a href="{{ path('service.index') }}" class="btn btn-danger shadow" id="return_btn">
+    annuler
+</a>
+
 <!-- HEADER -->
-<header class="row mt-4">
-	<div class="col-12 d-flex justify-content-center">
+<header class="row">
+	<div class="col-12">
 		<h1>Modification d'un service</h1>
 	</div>
 </header>
 
 <!-- MAIN -->
 <main class="container-fluid">
-	<div class="row d-flex justify-content-center mt-4">
-		<div class="col-6 card text-white bg-secondary p-3">
+	<div class="main_service row">
+		<div class="col-6 card shadow">
 			{{ form_start(form) }}
 			<div class="form-group">
 				{{ form_label(form.name) }}

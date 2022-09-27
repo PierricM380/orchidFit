@@ -7,21 +7,21 @@
 {% block body %}
 <div class="container-fluid">
     <!-- HEADER -->
-    <header class="row mt-4">
-        <div class="col-12 d-flex justify-content-center">
+    <header class="row my-4">
+        <div class="col-12">
             <h1>{{ partner.name }}</h1>
         </div>
     </header>
     <!-- MAIN -->
-    <main class="row d-flex justify-content-center">
+    <main class="main_partner row g-2">
         <!-- Partner Details -->
         <div class="col-11 col-lg-6">
-            <div class="card mb-3">
+            <div class="card shadow">
                 <div class="row g-0">
-                    <div class="col-11 col-lg-4 d-flex justify-content-center align-items-center">
+                    <div class="main_partner_card_image col-11 col-lg-4">
                         <img src="{{ vich_uploader_asset(partner, 'imageFile') }}" class="img-fluid rounded-start" alt="...">
                     </div>
-                    <div class="col-11  col-lg-8">
+                    <div class="col-11 col-lg-8">
                         <div class="card-body">
                             <h2 class="card-title">
                                 {% for user in partner.users %}
@@ -38,18 +38,19 @@
                             <p class="card-text">{{ partner.description }}</p>
                             <p class="card-text">État: {{ partner.isActive }}</p>
                         </div>
-                        <div class="card-footer text-center">
+                        <div class="card-footer">
                             <a href="{{ path('partner.edit', { id: partner.id }) }}" class="btn btn-sm btn-warning shadow">Modifier</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <!-- Structures of partner -->
-        <div class="row row-cols-1 row-cols-lg-3 g-2 d-flex justify-content-center">
+        <div class="main_partner_structures row row-cols-1 row-cols-lg-3 g-2">
             {% for structure in partner.structure %}
             <div class="col">
-                <div class="card text-white bg-secondary">
+                <div class="card shadow">
                     <h3 class="card-header">{{ structure.name }}</h3>
                     <div class="card-body">
                         {% for user in structure.users %}
@@ -59,7 +60,7 @@
                         </p>
                         <p class="card-text">État: {{ structure.isActive }}</p>
                     </div>
-                    <div class="card-footer text-center">
+                    <div class="card-footer">
                         <a href="{{ path('structure.show', { id: structure.id }) }}" class="btn btn-sm btn-info shadow">Consulter</a>
                     </div>
                 </div>

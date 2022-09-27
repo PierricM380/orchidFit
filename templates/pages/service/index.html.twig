@@ -1,30 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ parent() }}
-	services
+{{ parent() }}
+services
 {% endblock %}
 
 {% block body %}
-<Div class="container-fluid">
-	<!-- HEADER -->
-	<header class="row mt-4">
-		<div class="col-12 d-flex justify-content-center">
-			<h1>Services</h1>
-		</div>
-	</header>
+<!-- HEADER -->
+<header class="row">
+	<div class="col-12">
+		<h1>Services</h1>
+	</div>
+</header>
 
-	<!-- MAIN -->
-	<main class="row d-flex justify-content-center mt-4">
-		<div class="col-12 col-lg-10">
-		<!-- Alert message service actions -->
-			{% for message in app.flashes('success') %}
-			<div class="alert alert-dismissible alert-success col-6 col-lg-3">
-				{{ message }}
-			</div>
-			{% endfor %}
+<!-- MAIN -->
+<main class="container-fluid">
+	<div class="main_service row">
+		<div class="col-12 col-lg-8">
+			 <!-- Alert message service actions  -->
+			 {% for message in app.flashes('success') %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <p class="mb-0">{{ message }}</p>
+            </div>
+            {% endfor %}
 
-			<!-- if services return an empty array -->
+			<!-- if services not return an empty array -->
 			{% if not services.items is same as([]) %}
 			<div>
 				<p>
@@ -43,6 +44,7 @@
 						<thead>
 							<tr>
 								<th class="text-center" scope="col">Services</th>
+								<th class="text-center" scope="col">Statut</th>
 								<th class="text-center" scope="col">Date de création</th>
 								<th class="text-center" scope="col">Édition</th>
 								<th class="text-center" scope="col">Suppression</th>
@@ -52,6 +54,9 @@
 							{% for service in services %}
 							<tr>
 								<td class="text-center" scope="row">{{ service.name }}</td>
+								<td class="text-center" scope="row">
+                                    {{ service.isActive }}
+                                </td>
 								<td class="text-center" scope="row">{{ service.createdAt|date("d/m/Y") }}</td>
 								<td class="text-center" scope="row">
 									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
@@ -80,7 +85,6 @@
 			</a>
 		</div>
 		{% endif %}
-</div>
+	</div>
 </main>
-</Div>
 {% endblock %}

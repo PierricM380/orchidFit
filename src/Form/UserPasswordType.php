@@ -4,7 +4,6 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -41,11 +40,10 @@ class UserPasswordType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Nouveau mot de passe',
                 'label_attr' => ['class' => 'form-label mt-2'],
-                'constraints' => [new Assert\NotBlank()]
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-sm btn-primary shadow mt-4'
+                    'class' => 'btn btn-sm btn-success shadow mt-4'
                 ],
                 'label' => 'Changer mon mot de passe'
             ]);

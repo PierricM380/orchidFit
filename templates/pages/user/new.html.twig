@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block body %}
+<a href="{{ path('user.index') }}" class="btn btn-danger shadow" id="return_btn">
+    annuler
+</a>
+
 <!-- HEADER -->
 <header class="row my-4">
     <div class="col-12">
@@ -16,7 +20,7 @@
 <main class="container-fluid">
     <div class="main_user row">
         <div class="col-4 card bg-secondary">
-           {{ form(form) }}
+            {{ form(form) }}
         </div>
     </div>
 </main>

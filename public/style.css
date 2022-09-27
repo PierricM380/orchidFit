@@ -29,6 +29,12 @@ body {
 /* AT LG BREAK-POINT */
 @media screen and (min-width: 992px) {
 
+  #return_btn {
+    position: fixed;
+    top: 125px;
+    left: 25px;
+  }
+  
   /* NAVIGATION BAR */
   nav {
     height: 100px;
@@ -51,7 +57,8 @@ body {
   .main_login,
   .main_user,
   .main_partner,
-  .main_structure {
+  .main_structure,
+  .main_service {
     position: relative;
     top: 125px;
     display: flex;
@@ -61,9 +68,33 @@ body {
 
   .main_user>.card,
   .main_partner>.card,
-  .main_structure>.card {
+  .main_structure>.card,
+  .main_service>.card {
     color: white;
     padding: 25px;
+  }
+
+  /* partner détails view */
+  .main_partner_card_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main_partner_structures {
+    display: flex;
+    justify-content: center;
+  }
+
+  .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* partner and structure details view */
+  .card-footer {
+    text-align: center;
   }
 
   /* footer */

@@ -27,8 +27,6 @@ class RegistrationType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'minlenght' => '2',
-                    'maxlenght' => '50'
                 ]
             ])
             ->add('email', EmailType::class, [
@@ -81,7 +79,7 @@ class RegistrationType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary btn-sm shadow mt-4'
+                    'class' => 'btn btn-sm btn-success shadow mt-4'
                 ],
                 'label' => 'Valider'
             ]);

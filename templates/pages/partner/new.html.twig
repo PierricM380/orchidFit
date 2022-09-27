@@ -6,6 +6,10 @@ ajout partenaire
 {% endblock %}
 
 {% block body %}
+<a href="{{ path('partner.index') }}" class="btn btn-danger shadow" id="return_btn">
+    annuler
+</a>
+
 <!-- HEADER -->
 <header class="row my-4">
     <div class="col-12">
@@ -17,7 +21,7 @@ ajout partenaire
 <main class="container-fluid">
     <div class="main_partner row">
         <div class="col-6 card bg-secondary">
-        {{ form_start(form) }}
+            {{ form_start(form) }}
             <div class="form-group">
                 {{ form_label(form.name) }}
                 {{ form_widget(form.name) }}
@@ -26,7 +30,7 @@ ajout partenaire
                     {{ form_errors(form.name) }}
                 </div>
             </div>
-            
+
             <div id="form-group">
                 {{ form_row(form.users) }}
             </div>
@@ -66,7 +70,7 @@ ajout partenaire
             </div>
 
             <div class="form-group">
-               {{ form_row(form.structure) }}
+                {{ form_row(form.structure) }}
             </div>
 
             <div class="form-group">

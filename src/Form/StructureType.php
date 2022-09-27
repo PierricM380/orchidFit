@@ -110,7 +110,7 @@ class StructureType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => false,
-                'label' => 'Structures',
+                'label' => 'Choisissez un ou plusieurs services',
                 'label_attr' => [
                     'class' => 'form-label mt-2'
                 ],
@@ -118,7 +118,7 @@ class StructureType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary btn-sm shadow mt-4'
+                    'class' => 'btn btn-sm btn-success shadow mt-4'
                 ],
                 'label' => 'Valider'
             ]);

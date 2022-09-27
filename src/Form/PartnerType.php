@@ -27,8 +27,6 @@ class PartnerType extends AbstractType
             ->add('name', TextType::class, [
                 'attr' => [
                     'class' => 'form-control shadow',
-                    'minlength' => '2',
-                    'maxlength' => '50'
                 ],
                 'label' => 'Nom du partnaire',
                 'label_attr' => [
@@ -56,8 +54,6 @@ class PartnerType extends AbstractType
             ->add('postalAddress', TextType::class, [
                 'attr' => [
                     'class' => 'form-control shadow',
-                    'minlength' => '2',
-                    'maxlength' => '50'
                 ],
                 'required' => false,
                 'label' => 'Adresse postale',
@@ -78,8 +74,6 @@ class PartnerType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'min' => 1,
-                    'max' => 5
                 ],
                 'required' => false,
                 'label' => 'Description',
@@ -126,7 +120,7 @@ class PartnerType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary btn-sm shadow mt-4'
+                    'class' => 'btn btn-sm btn-success shadow mt-4'
                 ],
                 'label' => 'Valider'
             ]);

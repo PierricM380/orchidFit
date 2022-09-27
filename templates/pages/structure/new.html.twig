@@ -6,6 +6,10 @@ ajout structure
 {% endblock %}
 
 {% block body %}
+<a href="{{ path('structure.index') }}" class="btn btn-danger shadow" id="return_btn">
+    annuler
+</a>
+
 <!-- HEADER -->
 <header class="row my-4">
     <div class="col-12">
@@ -16,7 +20,7 @@ ajout structure
 <!-- MAIN -->
 <main class="container-fluid">
     <div class="main_structure row">
-        <div class="col-6 card shadow bg-secondary">
+        <div class="col-6 card shadow">
             {{ form_start(form) }}
             <div class="form-group">
                 {{ form_label(form.name) }}
