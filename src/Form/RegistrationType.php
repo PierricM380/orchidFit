@@ -76,12 +76,6 @@ class RegistrationType extends AbstractType
                     ]
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas'
-            ])
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-sm btn-success shadow mt-4'
-                ],
-                'label' => 'Valider'
             ]);
 
         // Data transformer

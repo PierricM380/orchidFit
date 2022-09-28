@@ -30,12 +30,6 @@ body {
 /* AT LG BREAK-POINT */
 @media screen and (min-width: 992px) {
 
-  #return_btn {
-    position: fixed;
-    top: 125px;
-    left: 25px;
-  }
-  
   /* NAVIGATION BAR */
   nav {
     height: 100px;
@@ -65,14 +59,6 @@ body {
     display: flex;
     justify-content: center;
     height: auto;
-  }
-
-  .main_user>.card,
-  .main_partner>.card,
-  .main_structure>.card,
-  .main_service>.card {
-    color: white;
-    padding: 25px;
   }
 
   /* index views */
@@ -142,13 +128,14 @@ body {
 
   /* partner and structure details view */
   .card-footer {
-    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
   }
 
   /* footer */
   footer {
     position: relative;
-    top: 275px;
+    top: 325px;
     height: 100px;
   }
 

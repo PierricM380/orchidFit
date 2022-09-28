@@ -115,12 +115,6 @@ class StructureType extends AbstractType
                     'class' => 'form-label mt-2'
                 ],
                 'choice_label' => 'name',
-            ])
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-sm btn-success shadow mt-4'
-                ],
-                'label' => 'Valider'
             ]);
 
         // Data transformer USERS

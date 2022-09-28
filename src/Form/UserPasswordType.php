@@ -40,12 +40,6 @@ class UserPasswordType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Nouveau mot de passe',
                 'label_attr' => ['class' => 'form-label mt-2'],
-            ])
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-sm btn-success shadow mt-4'
-                ],
-                'label' => 'Changer mon mot de passe'
             ]);
     }
 }

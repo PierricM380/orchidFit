@@ -35,12 +35,15 @@
                             <label for="password" class="form-label mt-2">Mot de passe</label>
                             <input type="password" class="form-control" id="password" name="_password" placeholder="********">
                         </div>
-
-                        <button type="submit" class="btn btn-sm btn-success mt-4 shadow">
-                            Se connecter
-                        </button>
-                    </form>
+                    
                 </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success shadow">
+                        Se connecter
+                    </button>
+                    <a class="btn btn-danger shadow" href="{{ path('home.index') }}">Retour accueil</a>
+                </div>
+                </form>
             </div>
         </div>
     </div>

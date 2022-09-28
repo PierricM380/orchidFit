@@ -32,12 +32,6 @@ class ServiceType extends AbstractType
                 'attr' => [
                     'class' => 'form-check-input shadow'
                 ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-sm btn-success shadow mt-4'
-                ],
-                'label' => 'Valider'
             ]);
     }
 

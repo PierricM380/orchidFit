@@ -6,10 +6,6 @@ ajout service
 {% endblock %}
 
 {% block body %}
-<a href="{{ path('service.index') }}" class="btn btn-danger shadow" id="return_btn">
-    annuler
-</a>
-
 <!-- HEADER -->
 <header class="row">
 	<div class="col-12">
@@ -21,28 +17,31 @@ ajout service
 <main class="container-fluid">
 	<div class="main_service row">
 		<div class="col-6 card shadow">
-			{{ form_start(form) }}
-			<div class="form-group">
-				{{ form_label(form.name) }}
-				{{ form_widget(form.name) }}
+			<div class="card-body">
+				{{ form_start(form) }}
+				<div class="form-group">
+					{{ form_label(form.name) }}
+					{{ form_widget(form.name) }}
 
-				<div class="form-error">
-					{{ form_errors(form.name) }}
+					<div class="form-error">
+						{{ form_errors(form.name) }}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="form-check form-switch mt-2">
+						{{ form_row(form.isActive) }}
+					</div>
 				</div>
 			</div>
-
-			<div class="form-group">
-				<div class="form-check form-switch mt-2">
-					{{ form_row(form.isActive) }}
-				</div>
+			<div class="card-footer">
+				<button type="submit" class='btn btn-sm btn-success'>Valider</button>
+				<a href="{{ path('service.index') }}" class="btn btn-sm btn-danger shadow">
+					Annuler
+				</a>
+				{{ form_end(form) }}
 			</div>
-
-			<div class="form-group">
-				{{ form_row(form.submit) }}
-			</div>
-			{{ form_end(form) }}
 		</div>
-	</div>
 	</div>
 </main>
 {% endblock %}
