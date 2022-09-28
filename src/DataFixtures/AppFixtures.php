@@ -22,76 +22,51 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        // Admin
+        $admin = new User();
+
+        $admin
+            ->setFullName('Philippe Marye')
+            ->setEmail('mp@gmail.com')
+            ->setRoles(['ROLE_ADMIN'])
+            ->setPlainPassword('ecf1');
+
+        $manager->persist($admin);
+        $manager->flush();
+
         // Users
         $users = [];
 
-        for ($u = 0; $u < 6; $u++) {
-            $user = new User();
-            $user
-                ->setFullName($this->faker->name())
-                ->setEmail($this->faker->email())
-                ->setRoles(['ROLE_PARTNER', 'ROLE_STRUCTURE'])
-                ->setPlainPassword('ecf');
+        $user1 = new User();
+        $user1
+            ->setFullName('Pierric Marye')
+            ->setEmail('pm@gmail.com')
+            ->setRoles(['ROLE_PARTNER'])
+            ->setPlainPassword('ecf');
 
-                $users[] = $user;
-                $manager->persist($user);
-        }
+        $users[] = $user1;
+        $manager->persist($user1);
+
+        $user2 = new User();
+        $user2
+            ->setFullName('Ghislaine Marye')
+            ->setEmail('gm@gmail.com')
+            ->setRoles(['ROLE_STRUCTURE'])
+            ->setPlainPassword('ecf');
+
+        $users[] = $user2;
+        $manager->persist($user2);
+
+        $user3 = new User();
+        $user3
+            ->setFullName('Emma Marye')
+            ->setEmail('em@gmail.com')
+            ->setRoles(['ROLE_STRUCTURE'])
+            ->setPlainPassword('ecf');
+
+        $users[] = $user3;
+        $manager->persist($user3);
 
         $manager->flush();
-
-        // Services
-        $services = [];
-
-        for ($o = 0; $o < 10; $o++) {
-            $service = new Service();
-            $service
-                ->setName($this->faker->word())
-                ->setisActive(mt_rand(0, 1) == 1 ? true : false);
-
-            $services[] = $service;
-            $manager->persist($service);
-        }
-
-        //Structures
-        $structures = [];
-
-        for ($s = 0; $s < 5; $s++) {
-            $structure = new Structure();
-            $structure
-            ->setName($this->faker->word())
-            ->setUsers($users[mt_rand(0, count($users) - 1)])
-            ->setPostalAddress($this->faker->address())
-            ->setPhoneNumber($this->faker->phoneNumber())
-            ->setDescription($this->faker->text(50))
-            ->setIsActive(mt_rand(0, 1) == 1 ? true : false);
-
-            for ($d = 0; $d < mt_rand(1, 5); $d++) {
-                $structure->addService($services[mt_rand(0, count($services) - 1)]);
-            }
-
-            $structures[] = $structure;
-            $manager->persist($structure);
-        }
-
-        // Partners
-        $partners = [];
-
-        for ($p = 0; $p < 5; $p++) {
-            $partner = new Partner();
-            $partner
-            ->setName($this->faker->word())
-            ->setUsers($users[mt_rand(0, count($users) - 1)])
-            ->setPostalAddress($this->faker->address())
-            ->setPhoneNumber($this->faker->phoneNumber())
-            ->setDescription($this->faker->text(50))
-            ->setIsActive(mt_rand(0, 1) == 1 ? true : false);
-
-            for ($d = 0; $d < mt_rand(1, 5); $d++) {
-                $partner->addStructure($structures[mt_rand(0, count($structures) - 1)]);
-            }
-
-            $partners[] = $partner;
-            $manager->persist($partner);
-        }
     }
 }
