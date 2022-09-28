@@ -17,6 +17,7 @@ body {
 
 /* NAVIGATION BAR */
 
+/* Partner form update */
 .form-image img {
   width: 100px;
   margin: 10px;
@@ -74,7 +75,54 @@ body {
     padding: 25px;
   }
 
-  /* partner détails view */
+  /* index views */
+  .index_partner_status,
+  .index_structure_status,
+  .index_service_status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+  }
+
+  .circle_active {
+    background: #42d7a7;
+  }
+
+  .circle_disable {
+    background-color: #e73283;
+  }
+
+  /* showPartner ans showStructure views */
+  .partner_status,
+  .partner_structure_status,
+  .structure_status,
+  .structure_service_status {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .partner_status .circle,
+  .partner_structure_status .circle,
+  .structure_status .circle,
+  .structure_service_status .circle {
+    width: 20px;
+    height: 20px;
+  }
+
+  .partner_status span,
+  .partner_structure_status span,
+  .structure_status span,
+  .structure_service_status span {
+    margin-left: 10px;
+  }
+
   .main_partner_card_image {
     display: flex;
     justify-content: center;

@@ -88,7 +88,8 @@ class PartnerType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-check-input'
-                ]
+                ],
+                'required' => false
             ])
             ->add('structure', EntityType::class, [
                 'class' => Structure::class,

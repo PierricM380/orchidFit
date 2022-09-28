@@ -8,87 +8,87 @@ utilisateurs
 {% block body %}
 <!-- HEADER -->
 <header class="row">
-    <div class="col-12">
-        <h1>Utilisateurs</h1>
-    </div>
+	<div class="col-12">
+		<h1>Utilisateurs</h1>
+	</div>
 </header>
 
 <!-- MAIN -->
 <main class="container-fluid">
-    <div class="main_user row">
-        <div class="col-11 col-lg-8">
-            <!-- Alert message user actions  -->
-            {% for message in app.flashes('success') %}
-            <div class="alert alert-dismissible alert-success">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                <p class="mb-0">{{ message }}</p>
-            </div>
-            {% endfor %}
+	<div class="main_user row">
+		<div class="col-11 col-lg-8">
+			<!-- Alert message user actions  -->
+			{% for message in app.flashes('success') %}
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				<p class="mb-0">{{ message }}</p>
+			</div>
+			{% endfor %}
 
-            <!-- if users not return an empty array -->
-            {% if not users.items is same as([]) %}
-            <div>
-                <p>
-                    Il y a
-                    {{ users.getTotalItemCount }}
-                    utilisateur(s) au total
-                </p>
+			<!-- if users not return an empty array -->
+			{% if not users.items is same as([]) %}
+			<div>
+				<p>
+					Il y a
+					{{ users.getTotalItemCount }}
+					utilisateur(s) au total
+				</p>
 
-                <a href="{{ path('user.new') }}" class="btn btn-sm btn-primary shadow">
-                    Créer un utilisateur
-                </a>
+				<a href="{{ path('user.new') }}" class="btn btn-sm btn-primary shadow">
+					Créer un utilisateur
+				</a>
 
-                <!-- users list -->
-                <div class="table-responsive mt-2">
-                    <table class="table align-middle table-bordered table-striped table-hover shadow">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">utilisateurs</th>
-                                <th class="text-center" scope="col">Email</th>
-                                <th class="text-center" scope="col">Rôle</th>
-                                <th class="text-center" scope="col">Date de création</th>
-                                <th class="text-center" scope="col">Suppression</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for user in users %}
-                            <tr>
-                                <td class="text-center" scope="row">{{ user.fullName }}</td>
-                                <td class="text-center" scope="row">{{ user.email }}</td>
-                                <td class="text-center" scope="row">
-                                    {% for role in user.roles %}
-                                        {% if role == "ROLE_PARTNER" %}
-                                            Partenaire
-                                        {% elseif role == "ROLE_STRUCTURE" %}
-                                            Structure
-                                        {% endif %}
-                                    {% endfor %}
-                                </td>
-                                <td class="text-center" scope="row">{{ user.createdAt|date("d/m/Y") }}</td>
-                                <td class="text-center" scope="row">
-                                    <a href="{{ path('user.delete', { id: user.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+				<!-- users list -->
+				<div class="table-responsive mt-2">
+					<table class="table align-middle table-bordered table-striped table-hover shadow">
+						<thead>
+							<tr>
+								<th class="text-center" scope="col">utilisateurs</th>
+								<th class="text-center" scope="col">Email</th>
+								<th class="text-center" scope="col">Rôle</th>
+								<th class="text-center" scope="col">Date de création</th>
+								<th class="text-center" scope="col">Suppression</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for user in users %}
+							<tr>
+								<td class="text-center" scope="row">{{ user.fullName }}</td>
+								<td class="text-center" scope="row">{{ user.email }}</td>
+								<td class="text-center" scope="row">
+									{% for role in user.roles %}
+									{% if role == "ROLE_PARTNER" %}
+									Partenaire
+									{% elseif role == "ROLE_STRUCTURE" %}
+									Structure
+									{% endif %}
+									{% endfor %}
+								</td>
+								<td class="text-center" scope="row">{{ user.createdAt|date("d/m/Y") }}</td>
+								<td class="text-center" scope="row">
+									<a href="{{ path('user.delete', { id: user.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 
-                <!-- pagination -->
-                <div class="navigation d-flex justify-content-center mt-2">
-                    {{ knp_pagination_render(users) }}
-                </div>
-            </div>
-        </div>
-        <!-- if users not return an empty array -->
-        {% else %}
-        <div class="col-11 col-lg-8">
-            <p>Il n'y a pas d'utilisateurs</p>
-            <a href="{{ path('user.new') }}" class="btn btn-sm btn-primary">
-                Créer un utilisateurs
-            </a>
-        </div>
-        {% endif %}
-    </div>
+				<!-- pagination -->
+				<div class="navigation d-flex justify-content-center mt-2">
+					{{ knp_pagination_render(users) }}
+				</div>
+			</div>
+		</div>
+		<!-- if users not return an empty array -->
+		{% else %}
+		<div class="col-11 col-lg-8">
+			<p>Il n'y a pas d'utilisateurs</p>
+			<a href="{{ path('user.new') }}" class="btn btn-sm btn-primary">
+				Créer un utilisateurs
+			</a>
+		</div>
+		{% endif %}
+	</div>
 </main>
 {% endblock %}

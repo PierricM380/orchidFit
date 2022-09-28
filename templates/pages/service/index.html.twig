@@ -54,8 +54,12 @@ services
 							{% for service in services %}
 							<tr>
 								<td class="text-center" scope="row">{{ service.name }}</td>
-								<td class="text-center" scope="row">
-                                    {{ service.isActive }}
+								<td class="index_service_status text-center" scope="row">
+								{% if service.isActive == 1 %}
+                                    <span class="circle circle_active"></span>
+                                    {% elseif service.isActive == 0 %}
+                                    <span class="circle circle_disable"></span>
+                                    {% endif %}
                                 </td>
 								<td class="text-center" scope="row">{{ service.createdAt|date("d/m/Y") }}</td>
 								<td class="text-center" scope="row">

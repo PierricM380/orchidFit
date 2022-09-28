@@ -37,7 +37,13 @@
                             {% endfor %}
                         </p>
                         <p class="card-text">{{ structure.description }}</p>
-                        <p class="card-text">État: {{ structure.isActive }}</p>
+                        <p class="structure_status card-text">État:
+                            {% if structure.isActive == 1 %}
+                            <span class="circle circle_active"></span>
+                            {% elseif structure.isActive == 0 %}
+                            <span class="circle circle_disable"></span>
+                            {% endif %}
+                        </p>
                     </div>
                     <div class="card-footer">
                         <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
@@ -45,10 +51,14 @@
                     <ul class="list-group">
                         {% for service in structure.service %}
                         <li class="list-group-item">
-                        <div class="row">
-                        {{ service.name }}
-                        {{ service.isActive}}
-                        </div>
+                            <div class="structure_service_status row">
+                                {{ service.name }}: 
+                                {% if service.isActive == 1 %}
+                                <span class="circle circle_active"></span>
+                                {% elseif service.isActive == 0 %}
+                                <span class="circle circle_disable"></span>
+                                {% endif %}
+                            </div>
                             <span><a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a></span>
                         </li>
                         {% endfor %}

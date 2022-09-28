@@ -17,8 +17,8 @@ partenaires
 <main class="container-fluid">
     <div class="main_partner row">
         <div class="col-12 col-lg-8">
-             <!-- Alert message user actions  -->
-             {% for message in app.flashes('success') %}
+            <!-- Alert message user actions  -->
+            {% for message in app.flashes('success') %}
             <div class="alert alert-dismissible alert-success">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <p class="mb-0">{{ message }}</p>
@@ -55,10 +55,18 @@ partenaires
                             {% for partner in partners %}
                             <tr>
                                 <td class="text-center" scope="row">{{ partner.name }}</td>
-                                <td class="text-center" scope="row"></td>
-                                <td class="text-center" scope="row">{{ partner.createdAt|date("d/m/Y") }}</td>
                                 <td class="text-center" scope="row">
-                                    {{ partner.isActive }}
+                                    {% for user in partner.users %}
+                                    {{ user.fullName }}
+                                    {% endfor %}
+                                </td>
+                                <td class="text-center" scope="row">{{ partner.createdAt|date("d/m/Y") }}</td>
+                                <td class="index_partner_status text-center" scope="row">
+                                    {% if partner.isActive == 1 %}
+                                    <span class="circle circle_active"></span>
+                                    {% elseif partner.isActive == 0 %}
+                                    <span class="circle circle_disable"></span>
+                                    {% endif %}
                                 </td>
                                 <td class="text-center" scope="row">
                                     <a href="{{ path('partner.show', {id: partner.id}) }}" class="btn btn-sm btn-info shadow">Consulter</a>

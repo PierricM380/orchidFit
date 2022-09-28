@@ -55,10 +55,18 @@ structures
                             {% for structure in structures %}
                             <tr>
                                 <td class="text-center" scope="row">{{ structure.getName }}</td>
-                                <td class="text-center" scope="row"></td>
-                                <td class="text-center" scope="row">{{ structure.createdAt|date("d/m/Y") }}</td>
                                 <td class="text-center" scope="row">
-                                    {{ structure.isActive }}
+                                {% for user in structure.users %}
+                                        {{ user.fullName }}
+                                    {% endfor %}
+                                </td>
+                                <td class="text-center" scope="row">{{ structure.createdAt|date("d/m/Y") }}</td>
+                                <td class="index_structure_status text-center" scope="row">
+                                {% if structure.isActive == 1 %}
+                                    <span class="circle circle_active"></span>
+                                    {% elseif structure.isActive == 0 %}
+                                    <span class="circle circle_disable"></span>
+                                    {% endif %}
                                 </td>
                                 <td class="text-center" scope="row">
                                     <a href="{{ path('structure.show', { id: structure.id }) }}" class="btn btn-sm btn-info shadow">Consulter</a>
