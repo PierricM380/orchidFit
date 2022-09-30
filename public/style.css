@@ -35,6 +35,14 @@ body {
     height: 100px;
   }
 
+  .nav_logo {
+    width: 75px;
+    height: auto;
+    border: 3px solid whitesmoke;
+    border-radius: 20px;
+    box-shadow: 0 0 5px black;
+  }
+
   /* HEADER */
   header {
     position: relative;
