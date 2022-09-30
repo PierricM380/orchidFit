@@ -1,13 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow fixed-top">
 	<div class="container-fluid">
-		<img class="nav_logo mx-2" src="/images/Orchid’Fit.png" alt="">
+		<img class="nav_logo mx-1" src="/images/Orchid’Fit.png" alt="">
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('home.index') }}">Accueil</a>
+					<a class="nav-link active" href="{{ path('home.index') }}">Orchid'Fit</a>
 				</li>
 				{# Check if an user is connected #}
 				{% if app.user %}
@@ -17,13 +17,13 @@
 					<a class="nav-link active" href="{{ path('user.index') }}">Utilisateurs</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link active" href="{{ path('service.index') }}">Services</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link active" href="{{ path('partner.index') }}">Partenaires</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" href="{{ path('structure.index') }}">Structures</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('service.index') }}">Services</a>
 				</li>
 				{% elseif 'ROLE_PARTNER' in app.user.roles %}
 				<li class="nav-item">
@@ -41,10 +41,6 @@
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="{{ path('security.logout') }}">Déconnexion</a>
 					</div>
-				</li>
-				{% else %}
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('security.login') }}">Connexion</a>
 				</li>
 				{% endif %}
 			</ul>

@@ -6,16 +6,15 @@ modifier service
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row">
-	<div class="col-12">
-		<h1>Modification d'un service</h1>
-	</div>
-</header>
-
-<!-- MAIN -->
-<main class="container-fluid">
-	<div class="main_service row">
+<div class="container-fluid">
+	<!-- HEADER -->
+	<header class="row">
+		<div class="col-12">
+			<h1>Modification d'un service</h1>
+		</div>
+	</header>
+	<!-- MAIN -->
+	<main class="main_service row">
 		<div class="col-6 card shadow">
 			<div class="card-body">
 				{{ form_start(form) }}
@@ -42,6 +41,6 @@ modifier service
 				{{ form_end(form) }}
 			</div>
 		</div>
-	</div>
-	</div>
-</main>{% endblock %}
+	</main>
+</div>
+{% endblock %}

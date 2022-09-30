@@ -6,16 +6,15 @@ modifier structure
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row my-4">
-    <div class="col-12">
-        <h1>Modification d'une structure</h1>
-    </div>
-</header>
-
-<!-- MAIN -->
-<main class="container-fluid">
-    <div class="main_structure row">
+<div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row">
+        <div class="col-12">
+            <h1>Modification d'une structure</h1>
+        </div>
+    </header>
+    <!-- MAIN -->
+    <main class="main_structure row">
         <div class="col-6 card shadow">
             <div class="card-body">{{ form_start(form) }}
                 <div class="form-group">
@@ -76,6 +75,6 @@ modifier structure
                 {{ form_end(form) }}
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 {% endblock %}

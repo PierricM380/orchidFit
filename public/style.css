@@ -5,14 +5,14 @@
 }
 
 body {
-  font-family: 'Bahnschrift';
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  overflow-x: hidden;
   min-height: 100vh;
   padding: 0;
   margin: 0;
+  font-family: 'Bahnschrift';
 }
 
 /* NAVIGATION BAR */
@@ -29,14 +29,13 @@ body {
 
 /* AT LG BREAK-POINT */
 @media screen and (min-width: 992px) {
-
   /* NAVIGATION BAR */
   nav {
-    height: 100px;
+    height: 125px;
   }
 
   .nav_logo {
-    width: 75px;
+    width: 100px;
     height: auto;
     border: 3px solid whitesmoke;
     border-radius: 20px;
@@ -46,27 +45,21 @@ body {
   /* HEADER */
   header {
     position: relative;
-    top: 125px;
+    top: 225px;
+    height: 150px;
   }
 
   header>div {
     display: flex;
     justify-content: center;
-    align-items: center;
   }
 
   /* MAIN */
-  .main_home,
-  .main_login,
-  .main_user,
-  .main_partner,
-  .main_structure,
-  .main_service {
+  main {
     position: relative;
-    top: 125px;
+    top: 275px;
     display: flex;
     justify-content: center;
-    height: auto;
   }
 
   /* index views */
@@ -143,10 +136,9 @@ body {
   /* footer */
   footer {
     position: relative;
-    top: 325px;
+    top: 400px;
     height: 100px;
   }
-
   footer>div {
     display: flex;
     flex-direction: column;

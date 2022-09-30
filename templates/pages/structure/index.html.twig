@@ -6,16 +6,15 @@ structures
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row">
-    <div class="col-12">
-        <h1>Structures</h1>
-    </div>
-</header>
-
-<!-- MAIN -->
-<main class="container-fluid">
-    <div class="main_structure row">
+<div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row">
+        <div class="col-12">
+            <h1>Structures</h1>
+        </div>
+    </header>
+    <!-- MAIN -->
+    <main class="main_structure row">
         <div class="col-12 col-lg-8">
             <!-- Alert message user actions  -->
             {% for message in app.flashes('success') %}
@@ -56,13 +55,13 @@ structures
                             <tr>
                                 <td class="text-center" scope="row">{{ structure.getName }}</td>
                                 <td class="text-center" scope="row">
-                                {% for user in structure.users %}
-                                        {{ user.fullName }}
+                                    {% for user in structure.users %}
+                                    {{ user.fullName }}
                                     {% endfor %}
                                 </td>
                                 <td class="text-center" scope="row">{{ structure.createdAt|date("d/m/Y") }}</td>
                                 <td class="index_structure_status text-center" scope="row">
-                                {% if structure.isActive == 1 %}
+                                    {% if structure.isActive == 1 %}
                                     <span class="circle circle_active"></span>
                                     {% elseif structure.isActive == 0 %}
                                     <span class="circle circle_disable"></span>
@@ -98,6 +97,6 @@ structures
             </a>
         </div>
         {% endif %}
-    </div>
-</main>
+    </main>
+</div>
 {% endblock %}

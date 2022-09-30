@@ -6,16 +6,16 @@ utilisateurs
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row">
-	<div class="col-12">
-		<h1>Utilisateurs</h1>
-	</div>
-</header>
 
-<!-- MAIN -->
-<main class="container-fluid">
-	<div class="main_user row">
+<div class="container-fluid">
+	<!-- HEADER -->
+	<header class="row">
+		<div class="col-12">
+			<h1>Utilisateurs</h1>
+		</div>
+	</header>
+	<!-- MAIN -->
+	<main class="main_user row">
 		<div class="col-11 col-lg-8">
 			<!-- Alert message user actions  -->
 			{% for message in app.flashes('success') %}
@@ -91,6 +91,6 @@ utilisateurs
 			</a>
 		</div>
 		{% endif %}
-	</div>
-</main>
+	</main>
+</div>
 {% endblock %}

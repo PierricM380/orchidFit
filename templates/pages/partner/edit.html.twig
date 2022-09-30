@@ -6,19 +6,18 @@ mofifier partenaire
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row my-4">
-    <div class="col-12">
-        <h1>Modification d'un partenaire</h1>
-    </div>
-</header>
 
-<!-- MAIN -->
-<!-- MAIN -->
-<main class="container-fluid">
-    <div class="main_partner row">
+<div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row">
+        <div class="col-12">
+            <h1>Modification d'un partenaire</h1>
+        </div>
+    </header>
+    <!-- MAIN -->
+    <main class="main_partner row">
         <div class="col-6 card bg-secondary">
-        <div class="card-body">
+            <div class="card-body">
                 {{ form_start(form) }}
                 <div class="form-group">
                     {{ form_label(form.name) }}
@@ -88,6 +87,6 @@ mofifier partenaire
                 {{ form_end(form) }}
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 {% endblock %}

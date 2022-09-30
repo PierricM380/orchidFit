@@ -6,16 +6,16 @@ ajout partenaire
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row my-4">
-    <div class="col-12">
-        <h1>Ajout d'un partenaire</h1>
-    </div>
-</header>
+<div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row">
+        <div class="col-12">
+            <h1>Ajout d'un partenaire</h1>
+        </div>
+    </header>
 
-<!-- MAIN -->
-<main class="container-fluid">
-    <div class="main_partner row">
+    <!-- MAIN -->
+    <main class="main_partner row">
         <div class="col-6 card bg-secondary">
             <div class="card-body">
                 {{ form_start(form) }}
@@ -87,6 +87,6 @@ ajout partenaire
                 {{ form_end(form) }}
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 {% endblock %}

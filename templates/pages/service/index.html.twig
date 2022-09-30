@@ -6,24 +6,23 @@ services
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row">
-	<div class="col-12">
-		<h1>Services</h1>
-	</div>
-</header>
-
-<!-- MAIN -->
-<main class="container-fluid">
-	<div class="main_service row">
+<div class="container-fluid">
+	<!-- HEADER -->
+	<header class="row">
+		<div class="col-12">
+			<h1>Services</h1>
+		</div>
+	</header>
+	<!-- MAIN -->
+	<main class="main_service row">
 		<div class="col-12 col-lg-8">
-			 <!-- Alert message service actions  -->
-			 {% for message in app.flashes('success') %}
-            <div class="alert alert-dismissible alert-success">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                <p class="mb-0">{{ message }}</p>
-            </div>
-            {% endfor %}
+			<!-- Alert message service actions  -->
+			{% for message in app.flashes('success') %}
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				<p class="mb-0">{{ message }}</p>
+			</div>
+			{% endfor %}
 
 			<!-- if services not return an empty array -->
 			{% if not services.items is same as([]) %}
@@ -55,12 +54,12 @@ services
 							<tr>
 								<td class="text-center" scope="row">{{ service.name }}</td>
 								<td class="index_service_status text-center" scope="row">
-								{% if service.isActive == 1 %}
-                                    <span class="circle circle_active"></span>
-                                    {% elseif service.isActive == 0 %}
-                                    <span class="circle circle_disable"></span>
-                                    {% endif %}
-                                </td>
+									{% if service.isActive == 1 %}
+									<span class="circle circle_active"></span>
+									{% elseif service.isActive == 0 %}
+									<span class="circle circle_disable"></span>
+									{% endif %}
+								</td>
 								<td class="text-center" scope="row">{{ service.createdAt|date("d/m/Y") }}</td>
 								<td class="text-center" scope="row">
 									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
@@ -89,6 +88,6 @@ services
 			</a>
 		</div>
 		{% endif %}
-	</div>
-</main>
+	</main>
+</div>
 {% endblock %}

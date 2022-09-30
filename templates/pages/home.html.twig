@@ -1,22 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-{{ parent() }} accueil
+{{ parent() }}
+accueil
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row">
-    <div class="col-12">
-        <h1>Bienvenue sur Orchid'fit</h1>
-    </div>
-</header>
+<div class="container-fluid">
+	<!-- HEADER -->
+	<header class="row">
+		<div class="col-12">
+			<h1>Bienvenue sur Orchid'fit</h1>
+		</div>
+	</header>
 
-<!-- MAIN -->
-<main class="container-fluid">
-    <div class="main_home row">
-        <div class="col-11 col-lg-4">
-            <!-- Alert message user actions  -->
+	<!-- MAIN -->
+	<main class="main_home row">
+		<div class="col-11 col-lg-4">
+			<!-- Alert message user actions  -->
 			{% for message in app.flashes('success') %}
 			<div class="alert alert-dismissible alert-success">
 				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -24,24 +25,31 @@
 			</div>
 			{% endfor %}
 
-            <!-- Presentation card -->
-            <div class="card text-center shadow">
-                <div class="card-body">
-                <p class="card-text">
-                        Orchid'Fit France est une grande marque de Fitness qui propose des services de qualités dans le but de garantir à nos clients le meilleur pour leur santé. 
-                    </p>
-                    <p class="card-text">
-                        Cette application est mise à disposition pour tout ses collaborateurs, afin qu'ils puissent consulter leurs informations et droits relatifs à leur contrat.
-                    </p>
-                    <p class="card-text">
-                        Si vous disposez d'un compte administrateur, il vous sera possible de gérer les droits pour chaque comptes et leurs informations.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a class="btn btn btn-success shadow" href="{{ path('security.login') }}">Connexion</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
+			<!-- Presentation card -->
+			<div class="card text-center shadow">
+				<div class="card-body">
+					<p class="card-text">
+						Orchid'Fit France est une grande marque de Fitness qui propose des services de qualités dans le but de garantir à nos clients le meilleur pour leur santé.
+					</p>
+					<p class="card-text">
+						Cette application est mise à disposition pour tout ses collaborateurs, afin qu'ils puissent consulter leurs informations et droits relatifs à leur contrat.
+					</p>
+					<p class="card-text">
+						Si vous disposez d'un compte administrateur, il vous sera possible de gérer les droits pour chaque comptes et leurs informations.
+					</p>
+					<p class="card-text">
+						Nous vous remercions de la confiance que vous nous accordez.
+					</p>
+				</div>
+
+				{% if app.user %}
+				{% else %}
+				<div class="card-footer">
+					<a class="btn btn btn-success shadow" href="{{ path('security.login') }}">Connexion</a>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</main>
+</div>
 {% endblock %}

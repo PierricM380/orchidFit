@@ -6,16 +6,15 @@ partenaires
 {% endblock %}
 
 {% block body %}
-<!-- HEADER -->
-<header class="row">
-    <div class="col-12 d-flex justify-content-center">
-        <h1>Partenaires</h1>
-    </div>
-</header>
-
-<!-- MAIN -->
-<main class="container-fluid">
-    <div class="main_partner row">
+<div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <h1>Partenaires</h1>
+        </div>
+    </header>
+    <!-- MAIN -->
+    <main class="main_partner row">
         <div class="col-12 col-lg-8">
             <!-- Alert message user actions  -->
             {% for message in app.flashes('success') %}
@@ -98,6 +97,6 @@ partenaires
             </a>
         </div>
         {% endif %}
-    </div>
-</main>
+    </main>
+</div>
 {% endblock %}

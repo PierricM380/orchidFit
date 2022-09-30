@@ -5,20 +5,15 @@
 {% endblock %}
 
 {% block body %}
-<a href="{{ path('user.index') }}" class="btn btn-danger shadow" id="return_btn">
-    annuler
-</a>
-
-<!-- HEADER -->
-<header class="row my-4">
-    <div class="col-12">
-        <h1>Ajout d'un utilisateur</h1>
-    </div>
-</header>
-
-<!-- MAIN -->
-<main class="container-fluid">
-    <div class="main_user row">
+<div class="container-fluid">
+    <!-- HEADER -->
+    <header class="row">
+        <div class="col-12">
+            <h1>Ajout d'un utilisateur</h1>
+        </div>
+    </header>
+    <!-- MAIN -->
+    <main class="main_user row">
         <div class="col-4 card">
             <div class="card-body">
                 {{ form_start(form) }}
@@ -65,6 +60,6 @@
                 {{ form_end(form) }}
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 {% endblock %}
