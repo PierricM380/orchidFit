@@ -52,14 +52,16 @@
                         {% for service in structure.service %}
                         <li class="list-group-item">
                             <div class="structure_service_status row">
-                                {{ service.name }}: 
+                                {{ service.name }}:
                                 {% if service.isActive == 1 %}
                                 <span class="circle circle_active"></span>
                                 {% elseif service.isActive == 0 %}
                                 <span class="circle circle_disable"></span>
                                 {% endif %}
                             </div>
-                            <span><a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a></span>
+                            <span>
+                                <a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+                            </span>
                         </li>
                         {% endfor %}
                     </ul>
