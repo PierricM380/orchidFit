@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow fixed-top">
 	<div class="container-fluid">
-		<img class="nav_logo mx-1" src="/images/Orchid’Fit.png" alt="">
+		<img class="nav_logo mx-1" src="/images/Orchid_Fit.png" alt="">
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -11,37 +11,37 @@
 				</li>
 				{# Check if an user is connected #}
 				{% if app.user %}
-				{# Check if an user have an specific role #}
-				{% if 'ROLE_ADMIN' in app.user.roles %}
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('user.index') }}">Utilisateurs</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('service.index') }}">Services</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('partner.index') }}">Partenaires</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('structure.index') }}">Structures</a>
-				</li>
-				{% elseif 'ROLE_PARTNER' in app.user.roles %}
-				<li class="nav-item">
-					<a class="nav-link active" href="">Ma franchise</a>
-				</li>
-				{% elseif 'ROLE_STRUCTURE' in app.user.roles %}
-				<li class="nav-item">
-					<a class="nav-link active" href="">Ma structure</a>
-				</li>
-				{% endif %}
-				<li class="nav-item dropdown" style="margin-right: 7em;">
-					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.fullName }}</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ path('security.logout') }}">Déconnexion</a>
-					</div>
-				</li>
+					{# Check if an user have an specific role #}
+					{% if 'ROLE_ADMIN' in app.user.roles %}
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('user.index') }}">Utilisateurs</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('service.index') }}">Services</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('partner.index') }}">Partenaires</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('structure.index') }}">Structures</a>
+						</li>
+					{% elseif 'ROLE_PARTNER' in app.user.roles %}
+						<li class="nav-item">
+							<a class="nav-link active" href="">Ma franchise</a>
+						</li>
+					{% elseif 'ROLE_STRUCTURE' in app.user.roles %}
+						<li class="nav-item">
+							<a class="nav-link active" href="">Ma structure</a>
+						</li>
+					{% endif %}
+					<li class="nav-item dropdown" style="margin-right: 7em;">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.fullName }}</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{ path('security.logout') }}">Déconnexion</a>
+						</div>
+					</li>
 				{% endif %}
 			</ul>
 		</div>
