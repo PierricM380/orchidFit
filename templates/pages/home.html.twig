@@ -43,6 +43,11 @@ accueil
 				</div>
 
 				{% if app.user %}
+				<div class="card-footer">
+					<p class="card-text text-warning">
+						Pour votre sécurité, veillez à changer votre mot de passe.
+					</p>
+				</div>
 				{% else %}
 				<div class="card-footer">
 					<a class="btn btn btn-success shadow" href="{{ path('security.login') }}">Connexion</a>
