@@ -6,19 +6,12 @@
 
 {% block body %}
 <div class="container-fluid">
-    <!-- HEADER -->
-    <header class="row" id="show_partner_header">
-        <div class="col-12">
-            <h1>
-                {{ partner.name }}
-            </h1>
-        </div>
-    </header>
     <!-- MAIN -->
     <main class="main_partner row g-2">
         <!-- Partner Details -->
-        <div class="col-11 col-lg-7">
+        <div class="col-11 col-lg-8">
             <div class="card shadow">
+                    <img src="{{ vich_uploader_asset(partner, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo du partenaire">
                 <div class="card-body">
                     <h2 class="card-title">
                         {% for user in partner.users %}
@@ -52,7 +45,7 @@
             {% for structure in partner.structure %}
             <div class="col">
                 <div class="card shadow">
-                    <h3 class="card-header text-center">{{ structure.name }}</h3>
+                    <h3 class="card-header text-center bg-light text-dark">{{ structure.name }}</h3>
                     <div class="card-body">
                         {% for user in structure.users %}
                         <p class="card-text">Gérant: {{ user.fullName }}
