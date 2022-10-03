@@ -14,6 +14,11 @@
                 <div class="card shadow">
                     <img src="{{ vich_uploader_asset(structure, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo de la structure">
                     <div class="card-body">
+                    <h1 class="card-title">
+                        {% for user in structure.users %}
+                        {{ user.fullName |title }}
+                        {% endfor %}
+                    </h1>
                         <p class="card-text">Adresse: {{ structure.postalAddress }}</p>
                         <p class="card-text">Téléphone: {{ structure.phoneNumber }}</p>
                         <p class="card-text">Email:
@@ -37,7 +42,7 @@
                         {% for service in structure.service %}
                         <li class="list-group-item">
                             <div class="structure_service_status row">
-                                {{ service.name }}:
+                                {{ service.name|capitalize }}:
                                 {% if service.isActive == 1 %}
                                 <span class="circle circle_active"></span>
                                 {% elseif service.isActive == 0 %}

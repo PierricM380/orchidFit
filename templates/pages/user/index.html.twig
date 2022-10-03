@@ -53,14 +53,14 @@ utilisateurs
 						<tbody>
 							{% for user in users %}
 							<tr>
-								<td class="text-center" scope="row">{{ user.fullName }}</td>
+								<td class="text-center" scope="row">{{ user.fullName|title }}</td>
 								<td class="text-center" scope="row">{{ user.email }}</td>
 								<td class="text-center" scope="row">
 									{% for role in user.roles %}
 									{% if role == "ROLE_ADMIN" %}
 									Administreur
 									{% elseif role == "ROLE_PARTNER" %}
-									Partenaires
+									Partenaire
 									{% elseif role == "ROLE_STRUCTURE" %}
 									Structure
 									{% endif %}

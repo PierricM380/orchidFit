@@ -52,7 +52,7 @@ services
 						<tbody>
 							{% for service in services %}
 							<tr>
-								<td class="text-center" scope="row">{{ service.name }}</td>
+								<td class="text-center" scope="row">{{ service.name|capitalize }}</td>
 								<td class="index_service_status text-center" scope="row">
 									{% if service.isActive == 1 %}
 									<span class="circle circle_active"></span>

@@ -53,10 +53,10 @@ partenaires
                         <tbody>
                             {% for partner in partners %}
                             <tr>
-                                <td class="text-center" scope="row">{{ partner.name }}</td>
+                                <td class="text-center" scope="row">{{ partner.name|title }}</td>
                                 <td class="text-center" scope="row">
                                     {% for user in partner.users %}
-                                    {{ user.fullName }}
+                                    {{ user.fullName|title }}
                                     {% endfor %}
                                 </td>
                                 <td class="text-center" scope="row">{{ partner.createdAt|date("d/m/Y") }}</td>

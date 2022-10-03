@@ -53,10 +53,10 @@ structures
                         <tbody>
                             {% for structure in structures %}
                             <tr>
-                                <td class="text-center" scope="row">{{ structure.getName }}</td>
+                                <td class="text-center" scope="row">{{ structure.name|title }}</td>
                                 <td class="text-center" scope="row">
                                     {% for user in structure.users %}
-                                    {{ user.fullName }}
+                                    {{ user.fullName|title }}
                                     {% endfor %}
                                 </td>
                                 <td class="text-center" scope="row">{{ structure.createdAt|date("d/m/Y") }}</td>
