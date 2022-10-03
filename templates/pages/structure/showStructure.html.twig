@@ -6,23 +6,13 @@
 
 {% block body %}
 <div class="container-fluid">
-    <!-- HEADER -->
-    <header class="row">
-        <div class="col-12">
-            <h1>{{ structure.name }}</h1>
-        </div>
-    </header>
     <!-- MAIN -->
     <main class="main_structure row">
         <!-- Structure Details -->
-        <div class="col-11 col-lg-6">
+        <div class="col-11 col-lg-8">
             <div class="col">
                 <div class="card shadow">
-                    <h3 class="card-header">
-                        {% for user in structure.users %}
-                        {{ user.fullName }}
-                        {% endfor %}
-                    </h3>
+                    <img src="{{ vich_uploader_asset(structure, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo de la structure">
                     <div class="card-body">
                         <p class="card-text">Adresse: {{ structure.postalAddress }}</p>
                         <p class="card-text">Téléphone: {{ structure.phoneNumber }}</p>

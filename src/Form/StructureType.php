@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -115,6 +116,16 @@ class StructureType extends AbstractType
                     'class' => 'form-label mt-2'
                 ],
                 'choice_label' => 'name',
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Image de la structure',
+                'label_attr' => [
+                    'class' => 'form-label mt-2'
+                ],
+                'required' => false
             ]);
 
         // Data transformer USERS
