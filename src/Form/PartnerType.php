@@ -111,7 +111,7 @@ class PartnerType extends AbstractType
             ])
             ->add('imageFile', VichImageType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control mb-1'
                 ],
                 'label' => 'Image du partenaire',
                 'label_attr' => [

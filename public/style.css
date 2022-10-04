@@ -17,12 +17,6 @@ body {
 
 /* NAVIGATION BAR */
 
-/* Partner form update */
-.form-image img {
-  width: 100px;
-  margin: 10px;
-}
-
 /* FOOTER */
 
 /* =================================================================================================================================== */
@@ -95,6 +89,13 @@ body {
   .circle_disable {
     background-color: #e73283;
   }
+
+  /* Partner and structure form update */
+.form-image img {
+  width: 300px;
+  height: auto;
+  margin: 10px;
+}
 
   /* showPartner and showStructure views */
   .partner_status,

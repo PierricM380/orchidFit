@@ -119,7 +119,7 @@ class StructureType extends AbstractType
             ])
             ->add('imageFile', VichImageType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control mb-1'
                 ],
                 'label' => 'Image de la structure',
                 'label_attr' => [
