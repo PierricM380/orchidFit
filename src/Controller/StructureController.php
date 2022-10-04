@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Structure;
 use App\Form\StructureType;
+use App\Form\StructureStatusType;
 use App\Repository\StructureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -24,8 +25,8 @@ class StructureController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/structure', name: 'structure.index', methods: ['GET'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function index(StructureRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $structures = $paginator->paginate(
@@ -46,8 +47,8 @@ class StructureController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/structure/nouveau', name: 'structure.new', methods: ['GET', 'POST'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $structure = new Structure();
@@ -81,8 +82,8 @@ class StructureController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/structure/edition/{id}', name: 'structure.edit', methods: ['GET', 'POST'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function edit(EntityManagerInterface $manager, Request $request, Structure $structure): Response
     {
         $form = $this->createForm(StructureType::class, $structure);
@@ -114,8 +115,8 @@ class StructureController extends AbstractController
      * @param Structure $service
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/structure/suppression/{id}', 'structure.delete', methods: ['GET'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function delete(
         EntityManagerInterface $manager,
         Structure $structure
@@ -135,13 +136,31 @@ class StructureController extends AbstractController
      * 
      * This controller allows us to show a structure details
      * @param Structure $structure
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('structure/consulter/{id}', name: 'structure.show', methods: ['GET'])]
-    public function show(Structure $structure): Response
+    #[Security('is_granted("ROLE_USER") or user === structure.getUsers()')]
+    #[Route('structure/consulter/{id}', name: 'structure.show', methods: ['GET', 'POST'])]
+    public function show(
+        Structure $structure,
+        Request $request, 
+        EntityManagerInterface $manager
+        ): Response
     {
+        $formStructureStatus = $this->createForm(StructureStatusType::class, $structure);
+
+        $formStructureStatus->handleRequest($request);
+        if ($formStructureStatus->isSubmitted() && $formStructureStatus->isValid()) {
+            $structure = $formStructureStatus->getData();
+
+            $manager->persist($structure);
+            $manager->flush();
+        }
+
         return $this->render('pages/structure/showStructure.html.twig', [
             'structure' => $structure,
+            'structureStatus' => $formStructureStatus->createView(),
         ]);
     }
 }

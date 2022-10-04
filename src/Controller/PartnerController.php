@@ -3,14 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Partner;
-use App\Entity\Structure;
 use App\Form\PartnerType;
+use App\Form\PartnerStatusType;
 use App\Repository\PartnerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -24,8 +25,8 @@ class PartnerController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/partenaire', name: 'partner.index', methods: ['GET'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function index(PartnerRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $partners = $paginator->paginate(
@@ -46,8 +47,8 @@ class PartnerController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/partenaire/nouveau', name: 'partner.new', methods: ['GET', 'POST'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $partner = new Partner();
@@ -81,8 +82,8 @@ class PartnerController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/partenaire/edition/{id}', name: 'partner.edit', methods: ['GET', 'POST'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function edit(EntityManagerInterface $manager, Request $request, Partner $partner): Response
     {
         $form = $this->createForm(PartnerType::class, $partner);
@@ -114,11 +115,11 @@ class PartnerController extends AbstractController
      * @param Partner $partner
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/partenaire/suppression/{id}', 'partner.delete', methods: ['GET'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
-    public function delete(EntityManagerInterface $manager, Partner $structure): Response
+    public function delete(EntityManagerInterface $manager, Partner $partner): Response
     {
-        $manager->remove($structure);
+        $manager->remove($partner);
         $manager->flush();
 
         $this->addFlash(
@@ -133,13 +134,27 @@ class PartnerController extends AbstractController
      * 
      * This controller allows us to show a partner details
      * @param Partner $partner
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('partenaire/consulter/{id}', name: 'partner.show', methods: ['GET'])]
-    public function show(Partner $partner): Response
+    #[Security('is_granted("ROLE_ADMIN") or is_granted("ROLE_PARTNER") or (user === partner.getUsers())')]
+    #[Route('partenaire/consulter/{id}', name: 'partner.show', methods: ['GET', 'POST'])]
+    public function show(Partner $partner, Request $request, EntityManagerInterface $manager): Response
     {
+        $form = $this->createForm(PartnerStatusType::class, $partner);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $partner = $form->getData();
+
+            $manager->persist($partner);
+            $manager->flush();
+        }
+        
         return $this->render('pages/partner/showPartner.html.twig', [
             'partner' => $partner,
+            'partnerStatus' => $form->createView()
         ]);
     }
 }

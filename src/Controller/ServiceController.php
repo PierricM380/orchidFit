@@ -25,8 +25,8 @@ class ServiceController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/service', name: 'service.index', methods: ['GET'])]
-   /* #[IsGranted('ROLE_ADMIN')] */
     public function index(ServiceRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $services = $paginator->paginate(
@@ -47,8 +47,8 @@ class ServiceController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/service/nouveau', name: 'service.new', methods: ['GET', 'POST'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $service = new Service();
@@ -82,8 +82,8 @@ class ServiceController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/service/edition/{id}', name: 'service.edit', methods: ['GET', 'POST'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function edit(EntityManagerInterface $manager, Request $request, Service $service): Response
     {
         $form = $this->createForm(ServiceType::class, $service);
@@ -115,8 +115,8 @@ class ServiceController extends AbstractController
      * @param Ingredient $service
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/service/suppression/{id}', 'service.delete', methods: ['GET'])]
-    /* #[IsGranted('ROLE_ADMIN')] */
     public function delete(
         EntityManagerInterface $manager,
         Service $service
