@@ -11,7 +11,7 @@
         <!-- Partner Details -->
         <div class="col-11 col-lg-8">
             <div class="card shadow">
-                    <img src="{{ vich_uploader_asset(partner, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo du partenaire">
+                <img src="{{ vich_uploader_asset(partner, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo du partenaire">
                 <div class="card-body">
                     <h1 class="card-title">
                         {% for user in partner.users %}
@@ -26,16 +26,52 @@
                     </p>
                     <p class="card-text">Téléphone: {{ partner.phoneNumber }}</p>
                     <p class="card-text">{{ partner.description }}</p>
-                    <p class="partner_status card-text">État:
-                        {% if partner.isActive == 1 %}
-                        <span class="circle circle_active"></span>
-                        {% elseif partner.isActive == 0 %}
-                        <span class="circle circle_disable"></span>
-                        {% endif %}
-                    </p>
+                    <!-- Status partner -->
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="partner_status">
+                                État:
+                                {% if partner.isActive == 1 %}
+                                <span class="circle circle_active"></span>
+                                {% elseif partner.isActive == 0 %}
+                                <span class="circle circle_disable"></span>
+                                {% endif %}
+                            </div>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-sm btn-warning shadow" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                Modifier
+                            </button>
+                        </li>
+                    </ul>
                 </div>
-                <div class="card-footer">
-                    <a href="{{ path('partner.edit', { id: partner.id }) }}" class="btn btn-sm btn-warning shadow">Modifier</a>
+            </div>
+
+            <!-- MODAL -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body d-flex justify-content-around">
+                            <p class="modal-title" id="staticBackdropLabel">Êtes-vous certain de vouloir changer le statut ?</p>
+                            <!-- Form partner status -->
+                            {{ form_start(partnerStatus) }}
+                            <div class="form-group">
+                                <div class="form-check form-switch">
+                                    {{ form_widget(partnerStatus.isActive) }}
+
+                                    <div class="form-error">
+                                        {{ form_errors(partnerStatus.isActive) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                {{form_row(partnerStatus.submit) }}
+                            </div>
+                            {{ form_end(partnerStatus) }}
+                            <button type="button" class="btn btn-sm btn-primary shadow" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

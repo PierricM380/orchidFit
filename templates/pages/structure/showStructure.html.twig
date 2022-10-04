@@ -10,51 +10,86 @@
     <main class="main_structure row">
         <!-- Structure Details -->
         <div class="col-11 col-lg-8">
-            <div class="col">
-                <div class="card shadow">
-                    <img src="{{ vich_uploader_asset(structure, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo de la structure">
-                    <div class="card-body">
+            <div class="card shadow">
+                <img src="{{ vich_uploader_asset(structure, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo de la structure">
+                <div class="card-body">
                     <h1 class="card-title">
                         {% for user in structure.users %}
                         {{ user.fullName |title }}
                         {% endfor %}
                     </h1>
-                        <p class="card-text">Adresse: {{ structure.postalAddress }}</p>
-                        <p class="card-text">Téléphone: {{ structure.phoneNumber }}</p>
-                        <p class="card-text">Email:
-                            {% for user in structure.users %}
-                            {{ user.email }}
-                            {% endfor %}
-                        </p>
-                        <p class="card-text">{{ structure.description }}</p>
-                        <p class="structure_status card-text">État:
-                            {% if structure.isActive == 1 %}
-                            <span class="circle circle_active"></span>
-                            {% elseif structure.isActive == 0 %}
-                            <span class="circle circle_disable"></span>
-                            {% endif %}
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
-                    </div>
+                    <p class="card-text">Adresse: {{ structure.postalAddress }}</p>
+                    <p class="card-text">Téléphone: {{ structure.phoneNumber }}</p>
+                    <p class="card-text">Email:
+                        {% for user in structure.users %}
+                        {{ user.email }}
+                        {% endfor %}
+                    </p>
+                    <p class="card-text">{{ structure.description }}</p>
+                    <!-- Status structure -->
                     <ul class="list-group">
-                        {% for service in structure.service %}
                         <li class="list-group-item">
-                            <div class="structure_service_status row">
-                                {{ service.name|capitalize }}:
-                                {% if service.isActive == 1 %}
+                            <div class="partner_status">
+                                État:
+                                {% if structure.isActive == 1 %}
                                 <span class="circle circle_active"></span>
-                                {% elseif service.isActive == 0 %}
+                                {% elseif structure.isActive == 0 %}
                                 <span class="circle circle_disable"></span>
                                 {% endif %}
                             </div>
-                            <span>
-                                <a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
-                            </span>
+                            <!-- Button trigger modal structure -->
+                            <button type="button" class="btn btn-sm btn-warning shadow" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                Modifier
+                            </button>
                         </li>
-                        {% endfor %}
                     </ul>
+                </div>
+                <!-- Service status -->
+                <ul class="list-group">
+                    {% for service in structure.service %}
+                    <li class="list-group-item">
+                        <div class="structure_service_status row">
+                            {{ service.name|capitalize }}:
+                            {% if service.isActive == 1 %}
+                            <span class="circle circle_active"></span>
+                            {% elseif service.isActive == 0 %}
+                            <span class="circle circle_disable"></span>
+                            {% endif %}
+                        </div>
+                        <span>
+                            <a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- MODAL structure -->
+            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body d-flex justify-content-around">
+                            <p class="modal-title" id="staticBackdropLabel">Êtes-vous certain de vouloir changer le statut ?</p>
+                            <!-- Form partner status -->
+                            {{ form_start(structureStatus) }}
+                            <div class="form-group">
+                                <div class="form-check form-switch">
+                                    {{ form_widget(structureStatus.isActive) }}
+
+                                    <div class="form-error">
+                                        {{ form_errors(structureStatus.isActive) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                {{form_row(structureStatus.submit) }}
+                            </div>
+                            {{ form_end(structureStatus) }}
+                            <button type="button" class="btn btn-sm btn-primary shadow" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
