@@ -15,7 +15,7 @@ services
 	</header>
 	<!-- MAIN -->
 	<main class="main_service row">
-		<div class="col-12 col-lg-8">
+		<div class="col-12 col-lg-10">
 			<!-- Alert message service actions  -->
 			{% for message in app.flashes('success') %}
 			<div class="alert alert-dismissible alert-success">
@@ -23,20 +23,31 @@ services
 				<p class="mb-0">{{ message }}</p>
 			</div>
 			{% endfor %}
-
-			<!-- if services not return an empty array -->
-			{% if not services.items is same as([]) %}
-			<div>
-				<p>
-					Il y a
-					{{ services.getTotalItemCount }}
-					service(s) au total
-				</p>
-
-				<a href="{{ path('service.new') }}" class="btn btn-sm btn-primary shadow">
-					Créer un service
-				</a>
-
+			<!-- Create button and filtering-->
+			<div class="row d-flex justify-content-between align-items-center">
+				<!-- Create button -->
+				<div class="col-3">
+					<a href="{{ path('service.new') }}" class="btn btn-primary shadow">Créer un service</a>
+				</div>
+				<!-- search form -->
+				<div class="col-4">
+					{{ form_start(searchServiceForm) }}
+					<div class="d-flex">
+						<div class="form-check form-switch me-2">
+							{{ form_widget(searchServiceForm.isActive) }}
+							{{ form_label(searchServiceForm.isActive) }}
+						</div>
+						<div class="form-check form-switch">
+							{{ form_widget(searchServiceForm.isDisabled) }}
+							{{ form_label(searchServiceForm.isDisabled) }}
+						</div>
+					</div>
+					<div class="d-flex">
+						{{ form_widget(searchServiceForm.se, {attr: {class:'form-control me-1'}}) }}
+						<button type="submit" class="btn btn-secondary shadow">Rechercher</button>
+					</div>
+					{{ form_end(searchServiceForm) }}
+				</div>
 				<!-- Services list -->
 				<div class="table-responsive mt-2">
 					<table class="table align-middle table-bordered table-striped table-hover shadow">
@@ -72,22 +83,12 @@ services
 						</tbody>
 					</table>
 				</div>
-
 				<!-- pagination -->
 				<div class="navigation d-flex justify-content-center mt-2">
 					{{ knp_pagination_render(services) }}
 				</div>
 			</div>
 		</div>
-		{% else %}
-		<div class="col-12 col-lg-10">
-			<p>Il n'y a pas de services</p>
-
-			<a href="{{ path('service.new') }}" class="btn btn-sm btn-primary">
-				Créer un service
-			</a>
-		</div>
-		{% endif %}
 	</main>
 </div>
 {% endblock %}

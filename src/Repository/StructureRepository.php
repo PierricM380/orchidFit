@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Structure;
+use App\Data\SearchStructure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,31 @@ class StructureRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function searchStructure(SearchStructure $search): array
+    {
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('s');
+
+        if (!empty($search->s)) {
+            $query = $query
+                ->andWhere('s.name LIKE :s')
+                ->setParameter('s', "%{$search->s}%");
+        }
+
+        if (!empty($search->isActive)) {
+            $query = $query
+                ->andWhere('s.isActive = 1');
+        }
+
+        if (!empty($search->isDisabled)) {
+            $query = $query
+                ->andWhere('s.isActive = 0');
+        }
+
+        return $query->getQuery()->getResult();
     }
 
 //    /**

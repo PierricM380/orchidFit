@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchService;
 use App\Entity\Service;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,31 @@ class ServiceRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function searchService(SearchService $search): array
+    {
+        $query = $this
+            ->createQueryBuilder('se')
+            ->select('se');
+
+        if (!empty($search->se)) {
+            $query = $query
+                ->andWhere('se.name LIKE :se')
+                ->setParameter('se', "%{$search->se}%");
+        }
+
+        if (!empty($search->isActive)) {
+            $query = $query
+                ->andWhere('se.isActive = 1');
+        }
+
+        if (!empty($search->isDisabled)) {
+            $query = $query
+                ->andWhere('se.isActive = 0');
+        }
+
+        return $query->getQuery()->getResult();
     }
 
 //    /**

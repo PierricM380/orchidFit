@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Structure;
 use App\Form\StructureType;
+use App\Data\SearchStructure;
+use App\Form\SearchStructureType;
 use App\Form\StructureStatusType;
 use App\Repository\StructureRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,14 +31,19 @@ class StructureController extends AbstractController
     #[Route('/structure', name: 'structure.index', methods: ['GET'])]
     public function index(StructureRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        $data = new SearchStructure();
+        $form = $this->createForm(SearchStructureType::class, $data);
+        $form->handleRequest($request);
+
         $structures = $paginator->paginate(
-            $repository->findAll(), /* query */
+            $repository->searchStructure($data), /* query */
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
 
         return $this->render('pages/structure/index.html.twig', [
-            'structures' => $structures
+            'structures' => $structures,
+            'searchStructureForm' => $form->createView()
         ]);
     }
 

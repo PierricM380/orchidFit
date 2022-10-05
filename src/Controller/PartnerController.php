@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Data\SearchPartner;
 use App\Entity\Partner;
 use App\Form\PartnerType;
 use App\Form\PartnerStatusType;
+use App\Form\SearchPartnerType;
 use App\Repository\PartnerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -27,16 +29,21 @@ class PartnerController extends AbstractController
      */
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/partenaire', name: 'partner.index', methods: ['GET'])]
-    public function index(PartnerRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    public function index(PartnerRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
+        $data = new SearchPartner();
+        $form = $this->createForm(SearchPartnerType::class, $data);
+        $form->handleRequest($request);
+
         $partners = $paginator->paginate(
-            $repository->findAll(), /* query */
+            $repository->searchPartner($data), /* query */
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
 
         return $this->render('pages/partner/index.html.twig', [
-            'partners' => $partners
+            'partners' => $partners,
+            'searchPartnerForm' => $form->createView()
         ]);
     }
     

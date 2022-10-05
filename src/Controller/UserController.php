@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Data\SearchUser;
+use App\Form\SearchUserType;
 use App\Form\RegistrationType;
 use App\Form\UserPasswordType;
 use App\Repository\UserRepository;
@@ -22,14 +24,19 @@ class UserController extends AbstractController
     #[Route('/utilisateur', name: 'user.index', methods: ['GET'])]
     public function index(UserRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        $data = new SearchUser();
+        $form = $this->createForm(SearchUserType::class, $data);
+        $form->handleRequest($request);
+
         $users = $paginator->paginate(
-            $repository->findAll(), /* query */
+            $repository->searchUser($data), /* query */
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
 
         return $this->render('pages/user/index.html.twig', [
-            'users' => $users
+            'users' => $users,
+            'searchUserForm' => $form->createView()
         ]);
     }
 

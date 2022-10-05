@@ -16,7 +16,7 @@ utilisateurs
 	</header>
 	<!-- MAIN -->
 	<main class="main_user row">
-		<div class="col-11 col-lg-8">
+		<div class="col-11 col-lg-10">
 			<!-- Alert message user actions  -->
 			{% for message in app.flashes('success') %}
 			<div class="alert alert-dismissible alert-success">
@@ -24,73 +24,64 @@ utilisateurs
 				<p class="mb-0">{{ message }}</p>
 			</div>
 			{% endfor %}
-
-			<!-- if users not return an empty array -->
-			{% if not users.items is same as([]) %}
-			<div>
-				<p>
-					Il y a
-					{{ users.getTotalItemCount }}
-					utilisateur(s) au total
-				</p>
-
-				<a href="{{ path('user.new') }}" class="btn btn-sm btn-primary shadow">
-					Créer un utilisateur
-				</a>
-
-				<!-- users list -->
-				<div class="table-responsive mt-2">
-					<table class="table align-middle table-bordered table-striped table-hover shadow">
-						<thead>
-							<tr>
-								<th class="text-center" scope="col">utilisateurs</th>
-								<th class="text-center" scope="col">Email</th>
-								<th class="text-center" scope="col">Rôle</th>
-								<th class="text-center" scope="col">Date de création</th>
-								<th class="text-center" scope="col">Suppression</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for user in users %}
-							<tr>
-								<td class="text-center" scope="row">{{ user.fullName|title }}</td>
-								<td class="text-center" scope="row">{{ user.email }}</td>
-								<td class="text-center" scope="row">
-									{% for role in user.roles %}
-									{% if role == "ROLE_ADMIN" %}
-									Administreur
-									{% elseif role == "ROLE_PARTNER" %}
-									Partenaire
-									{% elseif role == "ROLE_STRUCTURE" %}
-									Structure
-									{% endif %}
-									{% endfor %}
-								</td>
-								<td class="text-center" scope="row">{{ user.createdAt|date("d/m/Y") }}</td>
-								<td class="text-center" scope="row">
-									<a href="{{ path('user.delete', { id: user.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
-								</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
+			<!-- Create button and filtering -->
+			<div class="row d-flex justify-content-between align-items-center py-1">
+				<!-- Create button -->
+				<div class="col-3">
+					<a href="{{ path('user.new') }}" class="btn btn-primary shadow">Créer un utilisateur</a>
 				</div>
-
-				<!-- pagination -->
-				<div class="navigation d-flex justify-content-center mt-2">
-					{{ knp_pagination_render(users) }}
+				<!-- search form -->
+				<div class="col-4">
+					{{ form_start(searchUserForm) }}
+					<div class="d-flex">
+						{{ form_widget(searchUserForm.u, {attr: {class:'form-control me-1'}}) }}
+						<button type="submit" class="btn btn-secondary shadow">Rechercher</button>
+					</div>
+					{{ form_end(searchUserForm) }}
 				</div>
 			</div>
+			<!-- users list -->
+			<div class="table-responsive mt-2">
+				<table class="table align-middle table-bordered table-striped table-hover shadow">
+					<thead>
+						<tr>
+							<th class="text-center" scope="col">utilisateurs</th>
+							<th class="text-center" scope="col">Email</th>
+							<th class="text-center" scope="col">Rôle</th>
+							<th class="text-center" scope="col">Date de création</th>
+							<th class="text-center" scope="col">Suppression</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+						<tr>
+							<td class="text-center" scope="row">{{ user.fullName|title }}</td>
+							<td class="text-center" scope="row">{{ user.email }}</td>
+							<td class="text-center" scope="row">
+								{% for role in user.roles %}
+								{% if role == "ROLE_ADMIN" %}
+								Administreur
+								{% elseif role == "ROLE_PARTNER" %}
+								Partenaire
+								{% elseif role == "ROLE_STRUCTURE" %}
+								Structure
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td class="text-center" scope="row">{{ user.createdAt|date("d/m/Y") }}</td>
+							<td class="text-center" scope="row">
+								<a href="{{ path('user.delete', { id: user.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<!-- pagination -->
+			<div class="navigation d-flex justify-content-center mt-2">
+				{{ knp_pagination_render(users) }}
+			</div>
 		</div>
-		<!-- if users not return an empty array -->
-		{% else %}
-		<div class="col-11 col-lg-8">
-			<p>Il n'y a pas d'utilisateurs</p>
-			<a href="{{ path('user.new') }}" class="btn btn-sm btn-primary">
-				Créer un utilisateurs
-			</a>
-		</div>
-		{% endif %}
 	</main>
 </div>
 {% endblock %}

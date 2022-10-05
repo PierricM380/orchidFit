@@ -15,7 +15,7 @@ structures
     </header>
     <!-- MAIN -->
     <main class="main_structure row">
-        <div class="col-12 col-lg-8">
+        <div class="col-12 col-lg-10">
             <!-- Alert message user actions  -->
             {% for message in app.flashes('success') %}
             <div class="alert alert-dismissible alert-success">
@@ -23,80 +23,82 @@ structures
                 <p class="mb-0">{{ message }}</p>
             </div>
             {% endfor %}
-            <!-- if structures not return an empty array -->
-            {% if not structures.items is same as([]) %}
-            <div>
-                <p>
-                    Il y a
-                    {{ structures.getTotalItemCount }}
-                    structure(s) au total
-                </p>
-
-                <a href="{{ path('structure.new') }}" class="btn btn-sm btn-primary shadow">
-                    Créer une structure
-                </a>
-
-                <!-- structures list -->
-                <div class="table-responsive mt-2">
-                    <table class="table align-middle table-bordered table-striped table-hover shadow">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">structures</th>
-                                <th class="text-center" scope="col">Nom du gérant</th>
-                                <th class="text-center" scope="col">Date de création</th>
-                                <th class="text-center" scope="col">Statut</th>
-                                <th class="text-center" scope="col">Visualiser</th>
-                                <th class="text-center" scope="col">Éditer</th>
-                                <th class="text-center" scope="col">Suppression</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for structure in structures %}
-                            <tr>
-                                <td class="text-center" scope="row">{{ structure.name|title }}</td>
-                                <td class="text-center" scope="row">
-                                    {% for user in structure.users %}
-                                    {{ user.fullName|title }}
-                                    {% endfor %}
-                                </td>
-                                <td class="text-center" scope="row">{{ structure.createdAt|date("d/m/Y") }}</td>
-                                <td class="index_structure_status text-center" scope="row">
-                                    {% if structure.isActive == 1 %}
-                                    <span class="circle circle_active"></span>
-                                    {% elseif structure.isActive == 0 %}
-                                    <span class="circle circle_disable"></span>
-                                    {% endif %}
-                                </td>
-                                <td class="text-center" scope="row">
-                                    <a href="{{ path('structure.show', { id: structure.id }) }}" class="btn btn-sm btn-info shadow">Consulter</a>
-                                </td>
-                                <td class="text-center" scope="row">
-                                    <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
-                                </td>
-                                <td class="text-center" scope="row">
-                                    <a href="{{ path('structure.delete', { id: structure.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+            <!-- Create button and filtering -->
+            <div class="row d-flex justify-content-between align-items-center py-1">
+                <!-- Create button -->
+                <div class="col-3">
+                    <a href="{{ path('structure.new') }}" class="btn btn-primary shadow">Créer une structure</a>
                 </div>
-
-                <!-- pagination -->
-                <div class="navigation d-flex justify-content-center mt-2">
-                    {{ knp_pagination_render(structures) }}
+                <!-- search form -->
+                <div class="col-4">
+                    {{ form_start(searchStructureForm) }}
+                    <div class="d-flex">
+                        <div class="form-check form-switch me-2">
+                            {{ form_widget(searchStructureForm.isActive) }}
+                            {{ form_label(searchStructureForm.isActive) }}
+                        </div>
+                        <div class="form-check form-switch">
+                            {{ form_widget(searchStructureForm.isDisabled) }}
+                            {{ form_label(searchStructureForm.isDisabled) }}
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        {{ form_widget(searchStructureForm.s, {attr: {class:'form-control me-1'}}) }}
+                        <button type="submit" class="btn btn-secondary shadow">Rechercher</button>
+                    </div>
+                    {{ form_end(searchStructureForm) }}
                 </div>
             </div>
+            <!-- structures list -->
+            <div class="table-responsive mt-2">
+                <table class="table align-middle table-bordered table-striped table-hover shadow">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">structures</th>
+                            <th class="text-center" scope="col">Nom du gérant</th>
+                            <th class="text-center" scope="col">Date de création</th>
+                            <th class="text-center" scope="col">Statut</th>
+                            <th class="text-center" scope="col">Visualiser</th>
+                            <th class="text-center" scope="col">Éditer</th>
+                            <th class="text-center" scope="col">Suppression</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for structure in structures %}
+                        <tr>
+                            <td class="text-center" scope="row">{{ structure.name|title }}</td>
+                            <td class="text-center" scope="row">
+                                {% for user in structure.users %}
+                                {{ user.fullName|title }}
+                                {% endfor %}
+                            </td>
+                            <td class="text-center" scope="row">{{ structure.createdAt|date("d/m/Y") }}</td>
+                            <td class="index_structure_status text-center" scope="row">
+                                {% if structure.isActive == 1 %}
+                                <span class="circle circle_active"></span>
+                                {% elseif structure.isActive == 0 %}
+                                <span class="circle circle_disable"></span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center" scope="row">
+                                <a href="{{ path('structure.show', { id: structure.id }) }}" class="btn btn-sm btn-info shadow">Consulter</a>
+                            </td>
+                            <td class="text-center" scope="row">
+                                <a href="{{ path('structure.edit', { id: structure.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+                            </td>
+                            <td class="text-center" scope="row">
+                                <a href="{{ path('structure.delete', { id: structure.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- pagination -->
+            <div class="navigation d-flex justify-content-center mt-2">
+                {{ knp_pagination_render(structures) }}
+            </div>
         </div>
-        {% else %}
-        <div class="col-12 col-lg-10">
-            <p>Il n'y a pas de structures</p>
-
-            <a href="{{ path('structure.new') }}" class="btn btn-sm btn-primary">
-                Créer une structure
-            </a>
-        </div>
-        {% endif %}
     </main>
 </div>
 {% endblock %}

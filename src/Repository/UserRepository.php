@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchUser;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -54,6 +55,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
 
         $this->add($user, true);
+    }
+
+    public function searchUser(SearchUser $search): array
+    {
+        $query = $this
+            ->createQueryBuilder('u')
+            ->select('u');
+
+        if (!empty($search->u)) {
+            $query = $query
+                ->andWhere('u.fullName LIKE :u')
+                ->setParameter('u', "%{$search->u}%");
+        }
+
+        return $query->getQuery()->getResult();
     }
 
 //    /**

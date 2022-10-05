@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchPartner;
 use App\Entity\Partner;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,28 +40,53 @@ class PartnerRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Partner[] Returns an array of Partner objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function searchPartner(SearchPartner $search): array
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->select('p');
 
-//    public function findOneBySomeField($value): ?Partner
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if (!empty($search->q)) {
+            $query = $query
+                ->andWhere('p.name LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        if (!empty($search->isActive)) {
+            $query = $query
+                ->andWhere('p.isActive = 1');
+        }
+
+        if (!empty($search->isDisabled)) {
+            $query = $query
+                ->andWhere('p.isActive = 0');
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    //    /**
+    //     * @return Partner[] Returns an array of Partner objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('p.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Partner
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
