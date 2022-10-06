@@ -43,7 +43,7 @@ class StructureType extends AbstractType
                         ->createQueryBuilder('i')
                         ->orderBy('i.fullName', 'ASC');
                 },
-                'label' => 'Nom du franchisé',
+                'label' => 'Nom du gérant',
                 'label_attr' => [
                     'class' => 'form-label mt-2'
                 ],
