@@ -149,12 +149,7 @@ class StructureController extends AbstractController
      */
     #[Security('is_granted("ROLE_USER") or user === structure.getUsers()')]
     #[Route('structure/consulter/{id}', name: 'structure.show', methods: ['GET', 'POST'])]
-    public function show(
-        Structure $structure,
-        Request $request, 
-        EntityManagerInterface $manager
-        ): Response
-    {
+    public function show(Structure $structure, Request $request, EntityManagerInterface $manager): Response {
         $formStructureStatus = $this->createForm(StructureStatusType::class, $structure);
 
         $formStructureStatus->handleRequest($request);

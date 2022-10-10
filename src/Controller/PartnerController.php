@@ -46,7 +46,7 @@ class PartnerController extends AbstractController
             'searchPartnerForm' => $form->createView()
         ]);
     }
-    
+
     /**
      * This controller alow to create a partner
      *
@@ -158,7 +158,7 @@ class PartnerController extends AbstractController
             $manager->persist($partner);
             $manager->flush();
         }
-        
+
         return $this->render('pages/partner/showPartner.html.twig', [
             'partner' => $partner,
             'partnerStatus' => $form->createView()
