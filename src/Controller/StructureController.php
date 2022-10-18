@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Structure;
 use App\Form\StructureType;
-use App\Data\SearchStructure;
-use App\Form\SearchStructureType;
 use App\Form\StructureStatusType;
 use App\Repository\StructureRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,23 +25,19 @@ class StructureController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER')]
     #[Route('/structure', name: 'structure.index', methods: ['GET'])]
     public function index(StructureRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        $data = new SearchStructure();
-        $form = $this->createForm(SearchStructureType::class, $data);
-        $form->handleRequest($request);
-
         $structures = $paginator->paginate(
-            $repository->searchStructure($data), /* query */
+            $repository->findAll(), /* query */
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
 
         return $this->render('pages/structure/index.html.twig', [
             'structures' => $structures,
-            'searchStructureForm' => $form->createView()
+            /* 'searchStructureForm' => $form->createView() */
         ]);
     }
 
@@ -147,9 +141,10 @@ class StructureController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Security('is_granted("ROLE_USER") or user === structure.getUsers()')]
+    #[Security('is_granted("ROLE_ADMIN") or user === structure.getUser()')]
     #[Route('structure/consulter/{id}', name: 'structure.show', methods: ['GET', 'POST'])]
-    public function show(Structure $structure, Request $request, EntityManagerInterface $manager): Response {
+    public function show(Structure $structure, Request $request, EntityManagerInterface $manager): Response
+    {
         $formStructureStatus = $this->createForm(StructureStatusType::class, $structure);
 
         $formStructureStatus->handleRequest($request);

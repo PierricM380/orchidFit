@@ -15,7 +15,7 @@ accueil
 	</header>
 
 	<!-- MAIN -->
-	<main class="main_home row">
+	<main class="row">
 		<div class="col-11 col-lg-4">
 			<!-- Alert message user actions  -->
 			{% for message in app.flashes('success') %}
@@ -50,7 +50,7 @@ accueil
 				</div>
 				{% else %}
 				<div class="card-footer">
-					<a class="btn btn btn-success shadow" href="{{ path('security.login') }}">Connexion</a>
+					<a class="btn btn-sm btn-success shadow" href="{{ path('security.login') }}">Connexion</a>
 				</div>
 				{% endif %}
 			</div>

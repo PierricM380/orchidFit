@@ -2,15 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PartnerRepository;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
-
-use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
 use symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -30,9 +28,6 @@ class Partner
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
     private ?string $name;
-
-    #[ORM\ManyToMany(targetEntity: User::class)]
-    private Collection $users;
 
     #[UploadableField(mapping: 'partner_images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
@@ -55,10 +50,6 @@ class Partner
     #[ORM\Column(type: 'boolean')]
     private ?bool $isActive;
 
-    #[ORM\ManyToMany(targetEntity: Structure::class)]
-    #[Assert\NotNull()]
-    private Collection $structure;
-
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt;
@@ -67,12 +58,24 @@ class Partner
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $updatedAt;
 
+    #[ORM\OneToOne(inversedBy: 'partner', cascade: ['persist', 'remove'])]
+    private ?User $users;
+
+    #[ORM\OneToMany(mappedBy: 'partner', targetEntity: Structure::class)]
+    private Collection $structures;
+
     public function __construct()
     {
-        $this->structure = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable;
         $this->updatedAt = new \DateTimeImmutable();
-        $this->users = new ArrayCollection();
+        $this->structures = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+        return $this->users;
+        return $this->structures;
     }
 
     public function getId(): ?int
@@ -125,42 +128,6 @@ class Partner
     public function getImageName(): ?string
     {
         return $this->imageName;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    /**
-     * Set the value of users
-     *
-     * @return  self
-     */
-    public function setUsers($users)
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
-
-        return $this;
     }
 
     public function getPostalAddress(): ?string
@@ -235,30 +202,31 @@ class Partner
         return $this;
     }
 
-    /**
-     * @return Collection<int, Structure>
-     */
-    public function getStructure(): Collection
+    public function getUsers(): ?User
     {
-        return $this->structure;
+        return $this->users;
     }
 
-    /**
-     * Set the value of structure
-     *
-     * @return  self
-     */
-    public function setStructure($structure)
+    public function setUsers(?User $users): self
     {
-        $this->structure = $structure;
+        $this->users = $users;
 
         return $this;
     }
 
+    /**
+     * @return Collection<int, Structure>
+     */
+    public function getStructures(): Collection
+    {
+        return $this->structures;
+    }
+
     public function addStructure(Structure $structure): self
     {
-        if (!$this->structure->contains($structure)) {
-            $this->structure->add($structure);
+        if (!$this->structures->contains($structure)) {
+            $this->structures->add($structure);
+            $structure->setPartner($this);
         }
 
         return $this;
@@ -266,15 +234,13 @@ class Partner
 
     public function removeStructure(Structure $structure): self
     {
-        $this->structure->removeElement($structure);
+        if ($this->structures->removeElement($structure)) {
+            // set the owning side to null (unless already changed)
+            if ($structure->getPartner() === $this) {
+                $structure->setPartner(null);
+            }
+        }
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
-        return $this->users;
-        return $this->structure;
     }
 }

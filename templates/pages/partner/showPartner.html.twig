@@ -14,15 +14,11 @@
                 <img src="{{ vich_uploader_asset(partner, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo du partenaire">
                 <div class="card-body">
                     <h1 class="card-title">
-                        {% for user in partner.users %}
-                        {{ user.fullName|title}}
-                        {% endfor %}
+                        {{ partner.users.getFullName |title }}
                     </h1>
                     <p class="card-text">Adresse: {{ partner.postalAddress }}</p>
                     <p class="card-text">
-                        Email: {% for user in partner.users %}
-                        {{ user.email}}
-                        {% endfor %}
+                        {{ partner.users.getEmail }}
                     </p>
                     <p class="card-text">Téléphone: {{ partner.phoneNumber }}</p>
                     <p class="card-text">{{ partner.description }}</p>
@@ -48,7 +44,7 @@
 
             <!-- MODAL -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body d-flex justify-content-around">
                             <p class="modal-title" id="staticBackdropLabel">Êtes-vous certain de vouloir changer le statut ?</p>
@@ -78,15 +74,13 @@
 
         <!-- Structures of partner -->
         <div class="main_partner_structures row row-cols-1 row-cols-lg-3 g-2">
-            {% for structure in partner.structure %}
+            {% for structure in partner.structures %}
             <div class="col">
-                <div class="card shadow">
-                    <h3 class="card-header text-center bg-light text-dark">{{ structure.name }}</h3>
+                <div id="disable" class="card shadow">
+                    <h3 class="card-header text-center bg-light text-dark">{{ structure.getName }}</h3>
                     <div class="card-body">
-                        {% for user in structure.users %}
-                        <p class="card-text">Gérant: {{ user.fullName|title }}
-                        <p class="card-text">Email: {{ user.email }}</p>
-                        {% endfor %}
+                        <p class="card-text">Gérant: {{ structure.users.GetFullName |title }}
+                        <p class="card-text">Email: {{ structure.users.GetEmail }}</p>
                         </p>
                         <p class="partner_structure_status card-text">État:
                             {% if structure.isActive == 1 %}

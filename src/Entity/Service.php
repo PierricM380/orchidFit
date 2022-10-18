@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use symfony\Component\Validator\Constraints as Assert;
@@ -28,12 +30,22 @@ class Service
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt;
 
+    #[ORM\ManyToMany(targetEntity: Structure::class, mappedBy: 'services')]
+    private Collection $structures;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->structures = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+        return $this->structures;
     }
 
     public function getId(): ?int
@@ -77,8 +89,30 @@ class Service
         return $this;
     }
 
-    public function __toString()
+    /**
+     * @return Collection<int, Structure>
+     */
+    public function getStructures(): Collection
     {
-        return $this->name;
+        return $this->structures;
+    }
+
+    public function addStructure(Structure $structure): self
+    {
+        if (!$this->structures->contains($structure)) {
+            $this->structures->add($structure);
+            $structure->addService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStructure(Structure $structure): self
+    {
+        if ($this->structures->removeElement($structure)) {
+            $structure->removeService($this);
+        }
+
+        return $this;
     }
 }

@@ -4,15 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Service;
 use App\Form\ServiceType;
-use App\Data\SearchService;
-use App\Form\SearchServiceType;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -31,19 +28,15 @@ class ServiceController extends AbstractController
     #[Route('/service', name: 'service.index', methods: ['GET'])]
     public function index(ServiceRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        $data = new SearchService();
-        $form = $this->createForm(SearchServiceType::class, $data);
-        $form->handleRequest($request);
 
         $services = $paginator->paginate(
-            $repository->searchService($data), /* query */
+            $repository->findAll(), /* query */
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
 
         return $this->render('pages/service/index.html.twig', [
             'services' => $services,
-            'searchServiceForm' => $form->createView()
         ]);
     }
 

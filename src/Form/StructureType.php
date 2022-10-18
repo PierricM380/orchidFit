@@ -3,20 +3,20 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Partner;
 use App\Entity\Service;
 use App\Entity\Structure;
+
 use App\Repository\UserRepository;
+use App\Repository\PartnerRepository;
 use App\Repository\ServiceRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
-
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -43,16 +43,34 @@ class StructureType extends AbstractType
                         ->createQueryBuilder('i')
                         ->orderBy('i.fullName', 'ASC');
                 },
+                'attr' => [
+                    'class' => 'form-select',
+                ],
+                'multiple' => false,
+                'expanded' => false,
                 'label' => 'Nom du gérant',
                 'label_attr' => [
                     'class' => 'form-label mt-2'
                 ],
-                'attr' => [
-                    'class' => 'form-select'
-                ],
                 'choice_label' => 'fullName',
+            ])
+            ->add('partner', EntityType::class, [
+                'class' => Partner::class,
+                'query_builder' => function (PartnerRepository $r) {
+                    return $r
+                        ->createQueryBuilder('i')
+                        ->orderBy('i.name', 'ASC');
+                },
+                'attr' => [
+                    'class' => 'form-select',
+                ],
                 'multiple' => false,
                 'expanded' => false,
+                'label' => 'Partnenaire',
+                'label_attr' => [
+                    'class' => 'form-label mt-2'
+                ],
+                'choice_label' => 'name',
             ])
             ->add('postalAddress', TextType::class, [
                 'attr' => [
@@ -99,10 +117,10 @@ class StructureType extends AbstractType
                     'class' => 'form-check-input shadow'
                 ]
             ])
-            ->add('service', EntityType::class, [
+            ->add('services', EntityType::class, [
                 'class' => Service::class,
-                'query_builder' => function (ServiceRepository $s) {
-                    return $s
+                'query_builder' => function (ServiceRepository $r) {
+                    return $r
                         ->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
                 },
@@ -111,7 +129,7 @@ class StructureType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => false,
-                'label' => 'Choisissez un ou plusieurs services',
+                'label' => 'Choisissez les services souhaités',
                 'label_attr' => [
                     'class' => 'form-label mt-2'
                 ],
@@ -127,19 +145,6 @@ class StructureType extends AbstractType
                 ],
                 'required' => false
             ]);
-
-        // Data transformer USERS
-        $builder->get('users')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    // transform the array to a string
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    // transform the string back to an array
-                    return [$rolesString];
-                }
-            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

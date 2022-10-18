@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Data\SearchUser;
+use App\Form\EditUserType;
 use App\Form\SearchUserType;
 use App\Form\RegistrationType;
 use App\Form\UserPasswordType;
@@ -72,6 +73,50 @@ class UserController extends AbstractController
 
         return $this->render('pages/user/new.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * This controller allow us to edit user's profile
+     *
+     * @param User $choosenUser
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/utilisateur/edition/{id}', name: 'user.edit', methods: ['GET', 'POST'])]
+    public function edit(
+        User $choosenUser,
+        Request $request,
+        EntityManagerInterface $manager,
+        UserPasswordHasherInterface $hasher
+    ): Response {
+        $form = $this->createForm(EditUserType::class, $choosenUser);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($hasher->isPasswordValid($choosenUser, $form->getData()->getPlainPassword())) {
+                $user = $form->getData();
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Les informations du compte ont été modifiées.'
+                );
+
+                return $this->redirectToRoute('user.index');
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'Le mot de passe renseigné est incorrect.'
+                );
+            }
+        }
+
+        return $this->render('pages/user/edit.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

@@ -15,7 +15,7 @@ modifier structure
     </header>
     <!-- MAIN -->
     <main class="main_structure row">
-        <div class="col-6 card shadow">
+        <div class="col-11 col-lg-6 card shadow">
             <div class="card-body">{{ form_start(form) }}
                 <div class="form-group">
                     {{ form_label(form.name) }}
@@ -28,6 +28,10 @@ modifier structure
 
                 <div id="form-group">
                     {{ form_row(form.users) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.partner) }}
                 </div>
 
                 <div class="form-group">
@@ -64,7 +68,7 @@ modifier structure
                 </div>
 
                 <div class="form-group">
-                    {{ form_row(form.service) }}
+                    {{ form_row(form.services) }}
                 </div>
 
                 <div class="form-image">

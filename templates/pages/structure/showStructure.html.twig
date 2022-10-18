@@ -14,19 +14,13 @@
                 <img src="{{ vich_uploader_asset(structure, 'imageFile') }}" class="card-img-top img-fluid bg-secondary" alt="logo de la structure">
                 <div class="card-body">
                     <h1 class="card-title">
-                        {% for user in structure.users %}
-                        {{ user.fullName |title }}
-                        {% endfor %}
+                        {{ structure.users.getFullName |title }}
                     </h1>
+                    <p class="card-text">Email: {{ structure.users.getEmail }}</p>
                     <p class="card-text">Adresse: {{ structure.postalAddress }}</p>
                     <p class="card-text">Téléphone: {{ structure.phoneNumber }}</p>
-                    <p class="card-text">Email:
-                        {% for user in structure.users %}
-                        {{ user.email }}
-                        {% endfor %}
-                    </p>
                     <p class="card-text">{{ structure.description }}</p>
-                    <!-- Status structure -->
+                    <!-- Structure status -->
                     <ul class="list-group">
                         <li class="list-group-item">
                             <div class="partner_status">
@@ -38,7 +32,7 @@
                                 {% endif %}
                             </div>
                             <!-- Button trigger modal structure -->
-                            <button type="button" class="btn btn-sm btn-warning shadow" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                            <button type="button" class="btn btn-sm btn-warning shadow" data-bs-toggle="modal" data-bs-target="#structureStatus">
                                 Modifier
                             </button>
                         </li>
@@ -46,7 +40,7 @@
                 </div>
                 <!-- Service status -->
                 <ul class="list-group">
-                    {% for service in structure.service %}
+                    {% for service in structure.services %}
                     <li class="list-group-item">
                         <div class="structure_service_status row">
                             {{ service.name|capitalize }}:
@@ -56,17 +50,14 @@
                             <span class="circle circle_disable"></span>
                             {% endif %}
                         </div>
-                        <span>
-                            <a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
-                        </span>
                     </li>
                     {% endfor %}
                 </ul>
             </div>
 
             <!-- MODAL structure -->
-            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
+            <div class="modal fade" id="structureStatus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body d-flex justify-content-around">
                             <p class="modal-title" id="staticBackdropLabel">Êtes-vous certain de vouloir changer le statut ?</p>

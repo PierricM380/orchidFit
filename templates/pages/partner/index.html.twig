@@ -15,22 +15,22 @@ partenaires
     </header>
     <!-- MAIN -->
     <main class="main_partner row">
-        <div class="col-12 col-lg-10">
-            <!-- Alert message user actions  -->
-            {% for message in app.flashes('success') %}
-            <div class="col-4 alert alert-dismissible alert-success">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                <p class="mb-0">{{ message }}</p>
-            </div>
-            {% endfor %}
-            <!-- Create button and filtering -->
-            <div class="row d-flex justify-content-between align-items-center py-1">
+        <!-- Alert message user actions  -->
+        {% for message in app.flashes('success') %}
+        <div class="col-4 colg-11 alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <p class="mb-0">{{ message }}</p>
+        </div>
+        {% endfor %}
+        <!-- Create button and filtering -->
+        <div class="col-11 col-lg-9">
+            <div class="row d-flex justify-content-between align-items-end py-1">
                 <!-- Create button -->
-                <div class="col-3">
-                    <a href="{{ path('partner.new') }}" class="btn btn-primary shadow">Créer un partenaire</a>
+                <div class="col-2 col-lg-3">
+                    <a href="{{ path('partner.new') }}" class="btn btn-primary shadow">+</a>
                 </div>
                 <!-- search form -->
-                <div class="col-4">
+                <div class="col-9 col-lg-4">
                     {{ form_start(searchPartnerForm) }}
                     <div class="d-flex">
                         <div class="form-check form-switch me-2">
@@ -44,7 +44,7 @@ partenaires
                     </div>
                     <div class="d-flex">
                         {{ form_widget(searchPartnerForm.q, {attr: {class:'form-control me-1'}}) }}
-                        <button type="submit" class="btn btn-secondary shadow">Rechercher</button>
+                        <button type="submit" class="btn btn-sm btn-secondary shadow">Rechercher</button>
                     </div>
                     {{ form_end(searchPartnerForm) }}
                 </div>
@@ -69,9 +69,7 @@ partenaires
                         <tr>
                             <td class="text-center" scope="row">{{ partner.name|title }}</td>
                             <td class="text-center" scope="row">
-                                {% for user in partner.users %}
-                                {{ user.fullName|title }}
-                                {% endfor %}
+                                {{ partner.getUsers.fullName|title }}
                             </td>
                             <td class="text-center" scope="row">{{ partner.createdAt|date("d/m/Y") }}</td>
                             <td class="index_partner_status text-center" scope="row">
@@ -85,7 +83,7 @@ partenaires
                                 <a href="{{ path('partner.show', {id: partner.id}) }}" class="btn btn-sm btn-info shadow">Consulter</a>
                             </td>
                             <td class="text-center" scope="row">
-                                <a href="{{ path('partner.edit', { id: partner.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+                                <a href="{{ path('partner.edit', { id: partner.id }) }}" class="btn btn-sm btn-warning shadow">Modifier</a>
                             </td>
                             <td class="text-center" scope="row">
                                 <a href="{{ path('partner.delete', { id: partner.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>

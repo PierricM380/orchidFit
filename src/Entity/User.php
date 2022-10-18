@@ -33,11 +33,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private array $roles = [];
 
-    private ?string $plainPassword;
+    private ?string $plainPassword = "ecf";
 
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank()]
-    private ?string $password = 'ecf2022';
+    private ?string $password = 'ecf';
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
@@ -47,10 +47,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $updatedAt;
 
+    #[ORM\OneToOne(mappedBy: 'users', cascade: ['persist', 'remove'])]
+    private ?Structure $structure;
+
+    #[ORM\OneToOne(mappedBy: 'users', cascade: ['persist', 'remove'])]
+    private ?Partner $partner;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function __toString()
+    {
+        return $this->roles;
+        return $this->fullName;
+        return $this->email;
+        return $this->structure;
+        return $this->partner;
     }
 
     public function getId(): ?int
@@ -179,10 +194,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString()
+    public function getStructure(): ?Structure
     {
-        return $this->roles;
-        return $this->fullName;
-        return $this->email;
+        return $this->structure;
+    }
+
+    public function setStructure(?Structure $structure): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($structure === null && $this->structure !== null) {
+            $this->structure->setUsers(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($structure !== null && $structure->getUsers() !== $this) {
+            $structure->setUsers($this);
+        }
+
+        $this->structure = $structure;
+
+        return $this;
+    }
+
+    public function getPartner(): ?Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partner $partner): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($partner === null && $this->partner !== null) {
+            $this->partner->setUsers(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($partner !== null && $partner->getUsers() !== $this) {
+            $partner->setUsers($this);
+        }
+
+        $this->partner = $partner;
+
+        return $this;
     }
 }

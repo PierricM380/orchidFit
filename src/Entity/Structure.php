@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StructureRepository;
-use Doctrine\Common\Collections\Collection;
-
 use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection;
-
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
@@ -30,9 +28,6 @@ class Structure
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
     private ?string $name;
-
-    #[ORM\ManyToMany(targetEntity: User::class)]
-    private Collection $users;
 
     #[UploadableField(mapping: 'structure_images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
@@ -62,16 +57,27 @@ class Structure
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $updatedAt;
 
-    #[ORM\ManyToMany(targetEntity: Service::class)]
-    #[Assert\NotNull()]
-    private Collection $service;
+    #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'structures')]
+    private Collection $services;
+
+    #[ORM\OneToOne(inversedBy: 'structure', cascade: ['persist', 'remove'])]
+    private ?User $users;
+
+    #[ORM\ManyToOne(inversedBy: 'structures')]
+    private ?Partner $partner = null;
 
     public function __construct()
     {
-        $this->service = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable;
         $this->updatedAt = new \DateTimeImmutable();
-        $this->users = new ArrayCollection();
+        $this->services = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+        return $this->services;
+        return $this->users;
     }
 
     #[ORM\PrePersist()]
@@ -132,42 +138,6 @@ class Structure
         return $this->imageName;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    /**
-     * Set the value of users
-     *
-     * @return  self
-     */
-    public function setUsers($users)
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
-
-        return $this;
-    }
-
     public function getPostalAddress(): ?string
     {
         return $this->postalAddress;
@@ -216,42 +186,6 @@ class Structure
         return $this;
     }
 
-    /**
-     * @return Collection<int, Service>
-     */
-    public function getService(): Collection
-    {
-        return $this->service;
-    }
-
-    /**
-     * Set the value of service
-     *
-     * @return  self
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    public function addService(Service $service): self
-    {
-        if (!$this->service->contains($service)) {
-            $this->service->add($service);
-        }
-
-        return $this;
-    }
-
-    public function removeService(Service $service): self
-    {
-        $this->service->removeElement($service);
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -276,8 +210,51 @@ class Structure
         return $this;
     }
 
-    public function __toString()
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServices(): Collection
     {
-        return $this->name;
+        return $this->services;
+    }
+
+    public function addService(Service $service): self
+    {
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
+        }
+
+        return $this;
+    }
+
+    public function removeService(Service $service): self
+    {
+        $this->services->removeElement($service);
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): self
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    public function getPartner(): ?Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partner $partner): self
+    {
+        $this->partner = $partner;
+
+        return $this;
     }
 }

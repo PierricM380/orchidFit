@@ -14,39 +14,20 @@ services
 		</div>
 	</header>
 	<!-- MAIN -->
-	<main class="main_service row">
-		<div class="col-12 col-lg-10">
-			<!-- Alert message service actions  -->
-			{% for message in app.flashes('success') %}
-			<div class="alert alert-dismissible alert-success">
-				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-				<p class="mb-0">{{ message }}</p>
-			</div>
-			{% endfor %}
-			<!-- Create button and filtering-->
+	<main class="row">
+		<!-- Alert message service actions  -->
+		{% for message in app.flashes('success') %}
+		<div class="col-11 col-lg-4 alert alert-dismissible alert-success">
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			<p class="mb-0">{{ message }}</p>
+		</div>
+		{% endfor %}
+		<div class="col-11 col-lg-9">
+			<!-- Create button -->
 			<div class="row d-flex justify-content-between align-items-center">
 				<!-- Create button -->
 				<div class="col-3">
-					<a href="{{ path('service.new') }}" class="btn btn-primary shadow">Créer un service</a>
-				</div>
-				<!-- search form -->
-				<div class="col-4">
-					{{ form_start(searchServiceForm) }}
-					<div class="d-flex">
-						<div class="form-check form-switch me-2">
-							{{ form_widget(searchServiceForm.isActive) }}
-							{{ form_label(searchServiceForm.isActive) }}
-						</div>
-						<div class="form-check form-switch">
-							{{ form_widget(searchServiceForm.isDisabled) }}
-							{{ form_label(searchServiceForm.isDisabled) }}
-						</div>
-					</div>
-					<div class="d-flex">
-						{{ form_widget(searchServiceForm.se, {attr: {class:'form-control me-1'}}) }}
-						<button type="submit" class="btn btn-secondary shadow">Rechercher</button>
-					</div>
-					{{ form_end(searchServiceForm) }}
+					<a href="{{ path('service.new') }}" class="btn btn-primary shadow">+</a>
 				</div>
 				<!-- Services list -->
 				<div class="table-responsive mt-2">
@@ -73,7 +54,7 @@ services
 								</td>
 								<td class="text-center" scope="row">{{ service.createdAt|date("d/m/Y") }}</td>
 								<td class="text-center" scope="row">
-									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">modifier</a>
+									<a href="{{ path('service.edit', { id: service.id }) }}" class="btn btn-sm btn-warning shadow">Modifier</a>
 								</td>
 								<td class="text-center" scope="row">
 									<a href="{{ path('service.delete', { id: service.id }) }}" class="btn btn-sm btn-danger shadow">Supprimer</a>
