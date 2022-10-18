@@ -1,43 +1,65 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="author" content="Pierric Marye">
-		<title>
-			{% block title %}
-				Orchid'Fit -
-			{% endblock %}
-		</title>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Pierric Marye">
+	<meta name="Content-Type" content="UTF-8">
+	<meta name="Content-Language" content="fr">
+	<!-- Generals tags SEO -->
+	<link rel="icon" href="/images/Orchid_Fit.png" type="image/png" sizes="16x16">
+	<meta name="Keywords" content="Orchid'Fit, utilisateurs, partenaires, structures, services, Occitanie, Montpellier, Perpignan">
+	<meta name="Subject" content="Administration">
+	<meta name="Copyright" content="Orchid'Fit">
+	<meta name="Robots" content="all">
+	<meta name="Rating" content="general">
+	<meta name="Distribution" content="global">
+	<meta name="Category" content="software">
+	<meta name="DC.Title" content="Titre obligatoire">
+	<meta name="description" content="Orchid'Fit est une grande marque de fitness. ce site permet la gestion de partenaires, de structures ainsi que leurs options.">
+	<meta name="DC.Subject" content="Administration">
+	<meta name="DC.Copyright" content="Orchid'Fit">
+	<meta name="Identifier-Url" content="">
+	<!-- tags SEO Facebook -->
+	<meta property="og:description" content="Orchid'Fit est une grande marque de fitness. ce site permet la gestion de partenaires, de structures ainsi que leurs options.">
+	<meta property="ogimage" content="/images/Orchid_Fit.png">
+	<meta property="og:type" content="software">
+	<meta property=”og:url” content=””>
 
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
-			<!-- Dependencies -->
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/bootstrap.min.css">
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/_variables.scss">
-			<link rel="stylesheet" href="/style.css">
-			<link href="http://fonts.cdnfonts.com/css/bahnschrift" rel="stylesheet">
+	<title>
+		{% block title %}
+		Orchid'Fit -
 		{% endblock %}
+	</title>
 
-		<!-- Javascript -->
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-			<script src="/jquery/jquery-3.6.0.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-			
-			<noscript>Veuillez, s'il vous plaît, activer JavaScript pour pouvoir bénéficier de toutes lesfonctionnalités</noscript>
-		{% endblock %}
-	</head>
+	<!-- Dependencies -->
+	{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/quartz/_variables.scss">
+	<link rel="stylesheet" href="/style.css">
+	<link href="http://fonts.cdnfonts.com/css/bahnschrift" rel="stylesheet">
+	{% endblock %}
 
-	<body>
-		{% include "partials/_nav.html.twig" %}
+	<!-- Javascript -->
+	{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+	<script src="/jquery/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
-		{% block body %}{% endblock %}
+	<noscript>Veuillez, s'il vous plaît, activer JavaScript pour pouvoir bénéficier de toutes lesfonctionnalités</noscript>
+	{% endblock %}
+</head>
 
-		{% include "partials/_footer.html.twig" %}
-	</body>
+<body>
+	{% include "partials/_nav.html.twig" %}
+
+	{% block body %}{% endblock %}
+
+	{% include "partials/_footer.html.twig" %}
+</body>
 
 </html>
