@@ -33,11 +33,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private array $roles = [];
 
-    private ?string $plainPassword = "ecf";
+    private ?string $plainPassword = "password";
 
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank()]
-    private ?string $password = 'ecf';
+    private ?string $password = 'password';
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
