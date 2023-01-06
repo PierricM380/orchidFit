@@ -23,10 +23,10 @@ class AppFixtures extends Fixture
         $admin = new User();
 
         $admin
-            ->setFullName('Philippe Marye')
-            ->setEmail('mp@gmail.com')
+            ->setFullName('Prénom Nom')
+            ->setEmail('example@example')
             ->setRoles(['ROLE_ADMIN'])
-            ->setPlainPassword('ecf');
+            ->setPlainPassword('password');
 
         $manager->persist($admin);
         $manager->flush();
