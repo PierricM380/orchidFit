@@ -1,1 +1,1 @@
-a permission management tool for a fitness brand
+A permission management tool for a fitness brand
